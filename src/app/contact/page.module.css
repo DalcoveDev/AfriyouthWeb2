@@ -1,0 +1,72 @@
+/* Contact — refreshed layout system */
+
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--surface-page);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.rail {
+  position: sticky;
+  top: 112px;
+}
+
+.h2 {
+  font-size: clamp(1.6rem, 2.7vw, 2.2rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.prose {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+  margin-bottom: 26px;
+  max-width: 46ch;
+}
+
+.details {
+  border-top: 1px solid var(--border-hairline);
+}
+
+.detail {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.detailLabel {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  margin-bottom: 5px;
+}
+
+.detailValue {
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+}
+
+.formPanel {
+  background: var(--surface-subtle);
+  border-radius: var(--radius-card);
+  padding: clamp(16px, 2.4vw, 28px);
+}
+
+@media (max-width: 960px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+
+  .rail {
+    position: static;
+  }
+}

@@ -1,0 +1,154 @@
+/* Approach — refreshed layout system */
+
+.section {
+  padding: var(--section-pad) 0;
+  background: var(--surface-page);
+}
+
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.intro {
+  position: sticky;
+  top: 112px;
+}
+
+.h2 {
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 18px;
+}
+
+.prose {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+  max-width: 46ch;
+}
+
+.continuum {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-hairline);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent-text);
+}
+
+.capabilities {
+  list-style: none;
+  border-top: 1px solid var(--border-hairline);
+}
+
+.capability {
+  display: grid;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  gap: 20px;
+  align-items: baseline;
+  padding: 24px 4px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.capabilityName {
+  font-size: clamp(1.1rem, 1.7vw, 1.25rem);
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.capabilityDetail {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+}
+
+.dark {
+  padding: var(--section-pad) 0;
+  background: var(--color-green-900);
+  color: var(--color-white);
+}
+
+.darkHeader {
+  max-width: 720px;
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+
+.darkTitle {
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--color-white);
+}
+
+.darkLead {
+  margin-top: 14px;
+  max-width: 58ch;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-inverse-muted);
+}
+
+.bridgeSection {
+  padding: clamp(56px, 6.5vw, 88px) 0;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--border-hairline);
+}
+
+.bridgeGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.bridgeTitle {
+  font-size: clamp(1.55rem, 2.5vw, 2.05rem);
+  letter-spacing: -0.025em;
+  line-height: 1.14;
+  margin-bottom: 14px;
+}
+
+.bridgeBody {
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+  max-width: 56ch;
+}
+
+.bridgeLinks {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding-left: clamp(0px, 3vw, 36px);
+  border-left: 1px solid var(--border-hairline);
+}
+
+@media (max-width: 960px) {
+  .split,
+  .bridgeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .intro {
+    position: static;
+  }
+
+  .bridgeLinks {
+    padding-left: 0;
+    border-left: none;
+    padding-top: 12px;
+  }
+}
+
+@media (max-width: 640px) {
+  .capability {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}

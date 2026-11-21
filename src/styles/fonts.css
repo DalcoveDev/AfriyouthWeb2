@@ -1,0 +1,41 @@
+/* Gilroy — self-hosted brand typeface (body copy).
+
+   Only two weights ship with the free Gilroy pack used for this project:
+   Light (300) and ExtraBold (800). Their .woff2 files live in /public/fonts and
+   are generated from the licensed .otf sources with fontTools.
+
+   The five faces the original design specified are NOT all available. Body copy
+   (no explicit weight, i.e. 400) resolves to the Light face; <strong> resolves
+   to ExtraBold. If the full family is licensed later, drop the remaining files
+   into /public/fonts and restore the matching @font-face blocks below — no
+   other code change is needed:
+
+     Gilroy-Regular.woff2   400  Body copy
+     Gilroy-Medium.woff2    500  Buttons / emphasis
+     Gilroy-SemiBold.woff2  600  Labels, nav, small headings
+     Gilroy-Bold.woff2      700  Bold body copy
+
+   Declaring URLs for files that do not exist would log 404s on every page, so
+   only the two mounted weights are declared here. */
+
+@font-face {
+  font-family: 'Gilroy';
+  src:
+    local('Gilroy Light'),
+    local('Gilroy-Light'),
+    url('/fonts/Gilroy-Light.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  src:
+    local('Gilroy ExtraBold'),
+    local('Gilroy-ExtraBold'),
+    url('/fonts/Gilroy-ExtraBold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+}

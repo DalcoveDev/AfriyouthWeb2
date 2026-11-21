@@ -1,0 +1,731 @@
+/* ============================================================
+   HOMEPAGE — Mastercard Foundation-style composition with
+   AfriYouth brand colour and content.
+   ============================================================ */
+
+/* Shared atoms */
+.rule {
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin-bottom: 18px;
+  background: var(--color-signal);
+}
+
+.ruleBlue {
+  background: var(--color-accent);
+}
+
+.rulePink {
+  background: var(--color-signal);
+}
+
+.ruleSignal {
+  background: var(--color-signal);
+}
+
+.sectionHead {
+  max-width: 760px;
+  margin-bottom: clamp(20px, 2.4vw, 32px);
+}
+
+.sectionTitle {
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.sectionLead {
+  margin-top: 12px;
+  max-width: 56ch;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--ink-secondary);
+}
+
+/* 1. HERO --------------------------------------------------- */
+.hero {
+  padding-top: 38px;
+  background: var(--surface-page);
+}
+
+.heroFrame {
+  position: relative;
+  height: clamp(500px, 49vw, 650px);
+  overflow: hidden;
+  background: var(--brand-ink);
+}
+
+.heroImage {
+  object-fit: cover;
+  object-position: center 32%;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(13, 6, 36, 0.56) 0%, rgba(13, 6, 36, 0) 30%),
+    linear-gradient(0deg, rgba(13, 6, 36, 0.86) 0%, rgba(13, 6, 36, 0.32) 48%, rgba(13, 6, 36, 0) 74%);
+}
+
+.heroBody {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 96px clamp(24px, 3.4vw, 52px) clamp(32px, 4.4vw, 58px);
+}
+
+.heroTitle {
+  max-width: 17ch;
+  font-size: clamp(2.2rem, 4.4vw, 3.9rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  color: var(--color-white);
+}
+
+.heroLead {
+  max-width: 48ch;
+  font-size: clamp(0.96rem, 1.15vw, 1.06rem);
+  line-height: 1.62;
+  color: rgba(255, 255, 255, 0.84);
+  margin-bottom: 4px;
+}
+
+/* 2. IMPACT BRIEF ------------------------------------------- */
+.briefSection {
+  padding-top: clamp(32px, 4vw, 56px);
+}
+
+.brief {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  background: var(--brand-ink);
+  color: var(--color-white);
+  min-height: clamp(330px, 32vw, 440px);
+}
+
+.briefCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 18px;
+  padding: clamp(30px, 4.4vw, 64px);
+}
+
+.briefTitle {
+  max-width: 22ch;
+  font-size: clamp(1.55rem, 2.5vw, 2.2rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+}
+
+.briefBody {
+  max-width: 48ch;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.briefMedia {
+  position: relative;
+  min-height: 280px;
+}
+
+.briefImage {
+  object-fit: cover;
+}
+
+/* 3. COMMITMENT STATEMENT ----------------------------------- */
+.statement {
+  padding: clamp(56px, 7vw, 96px) 0;
+}
+
+.statementGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+  gap: clamp(38px, 6vw, 96px);
+  align-items: start;
+}
+
+.statementTitle {
+  max-width: 29ch;
+  font-size: clamp(1.5rem, 2.45vw, 2.1rem);
+  font-weight: 600;
+  line-height: 1.26;
+  letter-spacing: -0.025em;
+}
+
+.statementRight {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 4px;
+}
+
+.statementRight p {
+  font-size: 0.94rem;
+  line-height: 1.72;
+  color: var(--ink-secondary);
+  max-width: 52ch;
+}
+
+/* 4. LABS --------------------------------------------------- */
+.labs {
+  padding: 0 0 clamp(56px, 7vw, 88px);
+}
+
+/* 5. COMMITMENT TRACKER ------------------------------------- */
+.commitment {
+  padding: clamp(56px, 7vw, 88px) 0 clamp(48px, 6vw, 72px);
+  background: var(--brand-ink);
+  color: var(--color-white);
+}
+
+.commitmentTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+
+.commitmentTop > div:first-child > a {
+  margin-top: 24px;
+}
+
+.commitmentTitle {
+  max-width: 17ch;
+  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+}
+
+.commitmentLead {
+  margin-top: 14px;
+  max-width: 46ch;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.commitmentMedia {
+  position: relative;
+  min-height: clamp(260px, 30vw, 380px);
+  overflow: hidden;
+}
+
+.commitmentImage {
+  object-fit: cover;
+}
+
+.commitmentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: clamp(170px, 18vw, 220px);
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.tilePhoto {
+  position: relative;
+  overflow: hidden;
+}
+
+.tileImage {
+  object-fit: cover;
+}
+
+.statTile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: clamp(20px, 2.4vw, 30px);
+}
+
+.statMint {
+  background: var(--brand-lavender);
+  color: var(--brand-ink);
+}
+
+.statWhite {
+  background: var(--color-white);
+  color: var(--brand-ink);
+}
+
+.statPink {
+  background: #D138E8;
+  color: var(--brand-ink);
+}
+
+.statValue {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.2vw, 2.9rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.statLabel {
+  max-width: 20ch;
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.focusGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 22px);
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.focusCard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 232px;
+  padding: clamp(22px, 2.6vw, 32px);
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+
+.focusIcon {
+  width: 34px;
+  height: 34px;
+  color: var(--brand-lavender);
+}
+
+.focusIcon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.focusTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+}
+
+.focusBody {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* 6. RESEARCH ----------------------------------------------- */
+.research {
+  position: relative;
+  z-index: 1;
+  padding: clamp(56px, 7vw, 80px) 0 0;
+  background: var(--brand-ink);
+  color: var(--color-white);
+}
+
+.researchHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.researchHead > div {
+  max-width: 640px;
+}
+
+.inverse {
+  color: var(--color-white);
+}
+
+.researchLead {
+  margin-top: 14px;
+  max-width: 58ch;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.researchGrid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 24px);
+  margin-top: clamp(30px, 3.6vw, 44px);
+  transform: translateY(clamp(48px, 5vw, 76px));
+}
+
+.pubCard {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--color-white);
+  color: var(--ink-primary);
+}
+
+.pubCover {
+  display: block;
+  overflow: hidden;
+  transition: opacity var(--transition-base);
+}
+
+.pubCover:hover {
+  opacity: 0.92;
+}
+
+.pubMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px 20px;
+}
+
+.pubTitle {
+  font-size: 0.96rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.pubTitle a:hover {
+  color: var(--color-accent-text);
+}
+
+.pubStatus {
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+}
+
+/* 7. VOICES ------------------------------------------------- */
+.voices {
+  padding: clamp(150px, 13vw, 196px) 0 clamp(48px, 6vw, 80px);
+  background: var(--surface-page);
+}
+
+.voicesHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(18px, 2.4vw, 32px);
+}
+
+.voicesTitle {
+  font-size: clamp(1.8rem, 2.9vw, 2.4rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.voiceList {
+  margin-top: clamp(16px, 2vw, 28px);
+}
+
+.voiceRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 92px);
+  align-items: center;
+  padding-block: clamp(28px, 4vw, 46px);
+}
+
+.voiceReverse .voiceMedia {
+  order: -1;
+}
+
+.voiceCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.voiceTitle {
+  font-size: clamp(1.4rem, 2.15vw, 1.85rem);
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+}
+
+.voiceBody {
+  margin: 12px 0 22px;
+  max-width: 46ch;
+  font-size: 0.98rem;
+  line-height: 1.68;
+  color: var(--ink-secondary);
+}
+
+.voiceMedia {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--surface-subtle);
+}
+
+.voiceImage {
+  object-fit: cover;
+}
+
+/* 9. FUNDERS, FOUNDERS & INSTITUTIONAL PARTNERSHIPS -------- */
+.partnersSection {
+  padding: clamp(56px, 7vw, 88px) 0;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
+  margin-bottom: clamp(56px, 7vw, 88px);
+}
+
+.partnersTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(32px, 5.5vw, 84px);
+  align-items: end;
+  padding-bottom: clamp(32px, 4.5vw, 52px);
+}
+
+.partnersTitle {
+  max-width: 24ch;
+  font-size: clamp(1.65rem, 2.7vw, 2.25rem);
+  line-height: 1.14;
+  letter-spacing: -0.03em;
+}
+
+.partnersLead {
+  margin-top: 14px;
+  max-width: 58ch;
+  font-size: 0.96rem;
+  line-height: 1.68;
+  color: var(--ink-secondary);
+}
+
+.partnersCtaBox {
+  padding-left: clamp(0px, 3vw, 40px);
+  border-left: 1px solid var(--border-hairline-strong);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.partnersCtaNote {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+}
+
+.partnersCtaNote strong {
+  color: var(--ink-primary);
+  font-weight: 600;
+}
+
+.partnersActions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.partnersGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(20px, 2.8vw, 36px);
+  padding-top: clamp(28px, 3.6vw, 40px);
+  border-top: 1px solid var(--border-hairline-strong);
+}
+
+.partnerCol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.partnerGroup {
+  margin: 0;
+  line-height: 1.2;
+}
+
+.partnerTag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-white);
+  border: 1px solid var(--border-hairline-strong);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--ink-primary);
+}
+
+.partnerRole {
+  flex: 1;
+  font-size: 0.91rem;
+  line-height: 1.62;
+  color: var(--ink-secondary);
+}
+
+.partnerLink {
+  margin-top: 6px;
+  font-size: 0.88rem;
+}
+
+/* 10. LATEST ------------------------------------------------ */
+.latest {
+  padding-bottom: clamp(64px, 8vw, 104px);
+}
+
+.latestHead {
+  margin-bottom: clamp(18px, 2.2vw, 28px);
+}
+
+.latestTitle {
+  font-size: clamp(1.7rem, 2.8vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+/* RESPONSIVE ------------------------------------------------ */
+@media (max-width: 1100px) {
+  .researchGrid,
+  .partnersGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 26px;
+  }
+
+  .researchGrid {
+    transform: translateY(48px);
+  }
+
+  .voices {
+    padding-top: clamp(120px, 14vw, 150px);
+  }
+}
+
+@media (max-width: 1000px) {
+  .brief {
+    grid-template-columns: 1fr;
+  }
+
+  .briefMedia {
+    min-height: 320px;
+    order: -1;
+  }
+
+  .statementGrid,
+  .commitmentTop,
+  .voiceRow,
+  .programCtaGrid,
+  .partnersTop {
+    grid-template-columns: 1fr;
+  }
+
+  .partnersCtaBox {
+    padding-left: 0;
+    border-left: none;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  .statementGrid {
+    gap: 28px;
+  }
+
+  .commitmentMedia {
+    min-height: 300px;
+  }
+
+  .commitmentTitle {
+    max-width: 24ch;
+  }
+
+  .focusGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .focusCard {
+    min-height: 0;
+  }
+
+  .voiceRow {
+    gap: 22px;
+    padding-block: clamp(22px, 3vw, 34px);
+  }
+
+  .voiceReverse .voiceMedia {
+    order: 0;
+  }
+
+  .researchGrid {
+    transform: none;
+  }
+
+  .research {
+    padding-bottom: clamp(48px, 6vw, 64px);
+  }
+
+  .voices {
+    padding-top: clamp(56px, 7vw, 88px);
+  }
+
+  .researchHead,
+  .voicesHead {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 760px) {
+  .heroFrame {
+    height: clamp(400px, 78vw, 480px);
+  }
+
+  .commitmentGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 168px;
+  }
+
+  .statLabel {
+    font-size: 0.8rem;
+  }
+
+  .researchGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .briefMedia {
+    min-height: 240px;
+  }
+
+  .commitmentGrid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 180px;
+  }
+
+  .statTile {
+    min-height: 140px;
+  }
+
+  .researchGrid,
+  .partnersGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pubCard {
+    max-width: 420px;
+  }
+
+  .voicesTitle {
+    margin-bottom: 4px;
+  }
+}

@@ -1,0 +1,110 @@
+/* Contact inquiry form — refreshed layout system */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(22px, 3vw, 34px);
+  background: var(--color-white);
+  border-radius: var(--radius-editorial);
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-hairline);
+}
+.introText {
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--ink-secondary);
+  max-width: 52ch;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.field label {
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-secondary);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border-hairline-strong);
+  border-radius: var(--radius-editorial);
+  font-family: var(--font-body);
+  font-size: 0.96rem;
+  color: var(--ink-primary);
+  background: var(--surface-page);
+  transition:
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 132px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--ink-muted);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(3, 1, 255, 0.16);
+}
+
+.submitBtn {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.confirmation {
+  background: var(--color-green-900);
+  color: var(--color-white);
+  border-radius: var(--radius-editorial);
+  padding: clamp(24px, 3.4vw, 36px);
+}
+
+.confirmation h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+  color: var(--color-white);
+}
+
+.confirmation p {
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--ink-inverse-muted);
+  margin-bottom: 22px;
+}
+
+.confirmation code {
+  font-size: 0.9em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.resetBtn {
+  padding: 12px 24px;
+  font-size: 0.88rem;
+}

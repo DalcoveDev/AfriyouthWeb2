@@ -1,0 +1,236 @@
+.mapCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  border: 1px solid var(--border-hairline);
+}
+
+.mapCanvas {
+  position: relative;
+  width: 100%;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+}
+
+/* Surrounding non-African context countries */
+.contextCountry {
+  fill: #F5F5F9;
+  stroke: #E4E3EE;
+  stroke-width: 0.7;
+}
+
+/* African countries — Brand Mist & Lavender palette */
+.countryBase {
+  fill: #ECEBF7;
+  stroke: #B9B6DC;
+  stroke-width: 1;
+  transition: fill 200ms ease;
+}
+
+.countryBase:hover {
+  fill: #E1DFF5;
+}
+
+/* East African regional corridor around Rwanda */
+.countryNeighbor {
+  fill: #DCD9FE;
+  stroke: #8580E8;
+  stroke-width: 1.15;
+}
+
+/* Active Country — Rwanda (#0301FF brand blue + #C723DF signal accent) */
+.countryRwanda {
+  fill: var(--brand-blue);
+  stroke: var(--brand-duke-blue);
+  stroke-width: 1.4;
+}
+
+.countryRwandaTop {
+  fill: var(--brand-blue);
+  stroke: #FFFFFF;
+  stroke-width: 1.1;
+}
+
+/* Typography on map */
+.labelCountry {
+  font-family: var(--font-heading);
+  font-size: 11px;
+  font-weight: 500;
+  fill: #5B5675;
+  pointer-events: none;
+}
+
+.labelCity {
+  font-family: var(--font-body);
+  font-size: 9.5px;
+  font-weight: 400;
+  fill: #706B8A;
+  pointer-events: none;
+}
+
+.labelContext {
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 400;
+  fill: #8D89A3;
+  pointer-events: none;
+}
+
+.labelContinent {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  fill: rgba(13, 6, 36, 0.22);
+  pointer-events: none;
+}
+
+.oceanText text {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  fill: #9894AD;
+}
+
+/* Kigali Beacon & Callout Pill */
+.kigaliRing {
+  fill: rgba(199, 35, 223, 0.18);
+  stroke: var(--brand-pink);
+  stroke-width: 1.6;
+}
+
+.kigaliDot {
+  fill: #FFFFFF;
+  stroke: var(--brand-ink);
+  stroke-width: 1.6;
+}
+
+.leaderLine {
+  fill: none;
+  stroke: var(--brand-ink);
+  stroke-width: 1.2;
+  stroke-dasharray: 3 3;
+}
+
+.rwandaPillBg {
+  fill: var(--brand-ink);
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 1.2;
+}
+
+.rwandaPillText {
+  font-family: var(--font-heading);
+  font-size: 10.5px;
+  font-weight: 600;
+  fill: #FFFFFF;
+}
+
+/* 4x East Africa Zoom Lens */
+.lensBackdrop {
+  fill: #FFFFFF;
+  opacity: 0.95;
+}
+
+.lensBorder {
+  fill: none;
+  stroke: var(--brand-ink);
+  stroke-width: 1.75;
+}
+
+.insetNeighbor {
+  fill: #E3E1FC;
+  stroke: #8A86E2;
+  stroke-width: 0.35;
+}
+
+.insetRwanda {
+  fill: var(--brand-blue);
+  stroke: var(--brand-pink);
+  stroke-width: 0.55;
+}
+
+.lensSubLabel {
+  font-family: var(--font-heading);
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  fill: #645F7D;
+}
+
+.lensRwandaLabel {
+  font-family: var(--font-heading);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  fill: #FFFFFF;
+}
+
+.lensKigaliLabel {
+  font-family: var(--font-heading);
+  font-size: 9.5px;
+  font-weight: 700;
+  fill: var(--brand-ink);
+}
+
+.lensCaption {
+  font-family: var(--font-heading);
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  fill: var(--ink-secondary);
+}
+
+/* Legend Bar */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  padding: 16px 20px;
+  background: var(--surface-subtle);
+  border-top: 1px solid var(--border-hairline);
+  font-size: 0.83rem;
+  line-height: 1.45;
+  color: var(--ink-secondary);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legendItem strong {
+  color: var(--ink-primary);
+  font-weight: 600;
+}
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
+.swatchActive {
+  background: var(--brand-blue);
+  box-shadow: 0 0 0 2px var(--brand-pink);
+}
+
+.swatchRegion {
+  background: #DCD9FE;
+  border: 1px solid #8580E8;
+}
+
+.swatchContinent {
+  background: #ECEBF7;
+  border: 1px solid #B9B6DC;
+}

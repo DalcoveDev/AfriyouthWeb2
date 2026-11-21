@@ -1,0 +1,72 @@
+:root {
+  /* AfriYouth brand palette — the layout system keeps the refreshed
+     Mastercard-style composition, but every colour now comes from the
+     official brand guide: blue, duke blue, steel pink and dark purple. */
+  --brand-blue: #0301FF;
+  --brand-duke-blue: #0200A7;
+  --brand-pink: #C723DF;
+  --brand-ink: #0D0624;
+  --brand-lavender: #C9C8FF;
+  --brand-mist: #F6F6FA;
+  --brand-mist-strong: #EDECF7;
+  --brand-pink-soft: #FBF0FE;
+
+  /* Semantic roles used by the layout */
+  --color-accent: var(--brand-blue); /* primary fills: CTAs, active states */
+  --color-accent-hover: var(--brand-duke-blue);
+  --color-accent-text: var(--brand-duke-blue); /* AA links and labels on light */
+  --color-signal: var(--brand-pink); /* decorative highlights on dark surfaces */
+  --color-accent-inverse: var(--brand-lavender); /* accents on dark surfaces */
+
+  /* Legacy token names used across existing pages */
+  --color-orange: var(--color-accent);
+  --color-orange-ink: var(--color-accent-text);
+  --color-teal: var(--color-accent-inverse);
+  --color-teal-50: #EEEDFC;
+  --color-yellow: #F4B3FF;
+  --color-yellow-50: var(--brand-pink-soft);
+  --color-cream: var(--brand-mist);
+  --color-cream-soft: #FAF9FE;
+  --color-grey-50: var(--brand-mist-strong);
+  --color-green-900: var(--brand-ink);
+  --color-green-800: var(--brand-duke-blue);
+  --color-blue: var(--brand-blue);
+  --color-duke-blue: var(--brand-duke-blue);
+  --color-dark-purple: var(--brand-ink);
+  --color-steel-pink: var(--color-signal);
+  --color-white: #FFFFFF;
+
+  /* Surfaces */
+  --surface-page: #FFFFFF;
+  --surface-subtle: var(--brand-mist);
+  --surface-ink: var(--brand-ink);
+  --surface-trust: var(--brand-ink);
+
+  /* Ink */
+  --ink-primary: var(--brand-ink);
+  --ink-secondary: #3E3957;
+  --ink-muted: #645F7D;
+  --ink-inverse: #FFFFFF;
+  --ink-inverse-muted: rgba(255, 255, 255, 0.78);
+
+  /* Lines */
+  --border-hairline: rgba(13, 6, 36, 0.12);
+  --border-hairline-strong: rgba(13, 6, 36, 0.24);
+  --border-inverse: rgba(255, 255, 255, 0.18);
+
+  /* Typography */
+  --font-heading: var(--font-figtree), 'Helvetica Neue', Arial, sans-serif;
+  --font-body: var(--font-figtree), 'Helvetica Neue', Arial, sans-serif;
+
+  /* Geometry */
+  --container-max: 1410px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --section-pad: clamp(64px, 7vw, 104px);
+  --radius-editorial: 0px;
+  --radius-card: 0px;
+  --radius-pill: 999px;
+
+  /* Motion */
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-base: 220ms var(--ease-editorial);
+}
