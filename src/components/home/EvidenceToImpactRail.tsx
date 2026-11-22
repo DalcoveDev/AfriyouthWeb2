@@ -1,104 +1,259 @@
 'use client';
 
-import { useState } from 'react';
-import { ACCELERATOR_STAGES } from '@/data/homepage';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { ACCELERATOR_STAGES, type AcceleratorStage } from '@/data/homepage';
 import styles from './EvidenceToImpactRail.module.css';
 
-const PHASES = [
-  { name: 'I. Evidence & Insight', range: [1, 3] },
-  { name: 'II. Design & Policy', range: [4, 6] },
-  { name: 'III. Capital & Scale', range: [7, 10] },
+const PHASES: Array<{
+  name: AcceleratorStage['phase'];
+  firstStage: string;
+}> = [
+  { name: 'Evidence & Insight', firstStage: 'Discover' },
+  { name: 'Design & Policy', firstStage: 'Design' },
+  { name: 'Capital & Scale', firstStage: 'Finance' },
 ];
 
 export default function EvidenceToImpactRail() {
-  const [activeStep, setActiveStep] = useState(1);
-  const current =
-    ACCELERATOR_STAGES.find((s) => s.step === activeStep) ?? ACCELERATOR_STAGES[0];
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [flowProgress, setFlowProgress] = useState(0);
 
-  const handleStepChange = (step: number) => {
-    if (step >= 1 && step <= 10) setActiveStep(step);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const stationRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const nodeRefs = useRef<Array<HTMLSpanElement | null>>([]);
+  const rafRef = useRef<number | null>(null);
+
+  const current = ACCELERATOR_STAGES[activeIndex] ?? ACCELERATOR_STAGES[0];
+
+  const updateFromScroll = useCallback(() => {
+    const track = trackRef.current;
+    const stations = stationRefs.current;
+    const nodes = nodeRefs.current;
+    if (!track || stations.length === 0) return;
+
+    const triggerY = window.innerHeight * 0.42;
+
+    let closestIdx = 0;
+    let minDistance = Infinity;
+
+    for (let i = 0; i < stations.length; i++) {
+      const el = stations[i];
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      const center = rect.top + rect.height / 2;
+      const dist = Math.abs(center - triggerY);
+      if (dist < minDistance) {
+        minDistance = dist;
+        closestIdx = i;
+      }
+    }
+
+    setActiveIndex(closestIdx);
+
+    const firstNode = nodes[0];
+    const lastNode = nodes[nodes.length - 1];
+    if (firstNode && lastNode) {
+      const firstRect = firstNode.getBoundingClientRect();
+      const lastRect = lastNode.getBoundingClientRect();
+      const startY = firstRect.top + firstRect.height / 2;
+      const endY = lastRect.top + lastRect.height / 2;
+      const span = endY - startY;
+      if (span > 0) {
+        const raw = (triggerY - startY) / span;
+        setFlowProgress(Math.max(0, Math.min(1, raw)));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const onScrollOrResize = () => {
+      if (rafRef.current !== null) return;
+      rafRef.current = window.requestAnimationFrame(() => {
+        rafRef.current = null;
+        updateFromScroll();
+      });
+    };
+
+    updateFromScroll();
+    window.addEventListener('scroll', onScrollOrResize, { passive: true });
+    window.addEventListener('resize', onScrollOrResize, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', onScrollOrResize);
+      window.removeEventListener('resize', onScrollOrResize);
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+      }
+    };
+  }, [updateFromScroll]);
+
+  const scrollToStage = (index: number) => {
+    const clamped = Math.max(0, Math.min(ACCELERATOR_STAGES.length - 1, index));
+    const target = stationRefs.current[clamped];
+    if (!target) return;
+
+    const rect = target.getBoundingClientRect();
+    const targetCenter = window.scrollY + rect.top + rect.height / 2;
+    const desiredTop = targetCenter - window.innerHeight * 0.42;
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches;
+
+    window.scrollTo({
+      top: Math.max(0, desiredTop),
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
   };
 
   return (
     <div className={styles.wrapper}>
-      {/* Macro Phase Headers */}
-      <div className={styles.phaseBar}>
-        {PHASES.map((phase) => {
-          const isCurrentPhase =
-            activeStep >= phase.range[0] && activeStep <= phase.range[1];
-          return (
-            <div
-              key={phase.name}
-              className={`${styles.phaseItem} ${isCurrentPhase ? styles.phaseActive : ''}`}
-            >
-              <span>{phase.name}</span>
-              <span className={styles.phaseRange}>
-                Stages 0{phase.range[0]}–{phase.range[1] < 10 ? `0${phase.range[1]}` : phase.range[1]}
-              </span>
-            </div>
+      {/* Macro Phase Continuum */}
+      <nav className={styles.phaseBar} aria-label="Pipeline phases">
+        {PHASES.map((phase, idx) => {
+          const isCurrentPhase = current.phase === phase.name;
+          const targetIndex = ACCELERATOR_STAGES.findIndex(
+            (s) => s.title === phase.firstStage,
           );
-        })}
-      </div>
+          const phaseActiveIdx = PHASES.findIndex(
+            (p) => p.name === current.phase,
+          );
+          const isPassedPhase = idx < phaseActiveIdx;
 
-      {/* Horizontal Scrubber Track */}
-      <div className={styles.rail} role="tablist" aria-label="Evidence-to-Impact 10-Stage Process">
-        {ACCELERATOR_STAGES.map((stage) => {
-          const isSelected = stage.step === activeStep;
-          const isPassed = stage.step < activeStep;
           return (
             <button
-              key={stage.step}
+              key={phase.name}
               type="button"
-              role="tab"
-              aria-selected={isSelected}
-              className={`${styles.node} ${isSelected ? styles.nodeSelected : ''} ${
-                isPassed ? styles.nodePassed : ''
-              }`}
-              onClick={() => handleStepChange(stage.step)}
+              onClick={() => scrollToStage(targetIndex >= 0 ? targetIndex : 0)}
+              className={`${styles.phaseItem} ${
+                isCurrentPhase ? styles.phaseActive : ''
+              } ${isPassedPhase ? styles.phasePassed : ''}`}
             >
-              <span className={styles.nodeDot} />
-              <span className={styles.nodeCode}>{stage.code}</span>
-              <span className={styles.nodeTitle}>{stage.title}</span>
+              <span className={styles.phaseDot} aria-hidden="true" />
+              <span className={styles.phaseName}>{phase.name}</span>
+              {idx < PHASES.length - 1 && (
+                <span className={styles.phaseArrow} aria-hidden="true">
+                  →
+                </span>
+              )}
             </button>
           );
         })}
-      </div>
+      </nav>
 
-      {/* Active Stage Monograph Display */}
-      <div className={styles.detailCard} role="tabpanel" aria-live="polite">
-        <div className={styles.detailLeft}>
-          <span className={styles.detailPhase}>{current.phase}</span>
-          <h3 className={styles.detailTitle}>
-            Stage {current.code}: {current.title}
-          </h3>
-          <p className={styles.detailDesc}>{current.description}</p>
-        </div>
+      {/* Two-Column Scroll-Driven Pipeline */}
+      <div className={styles.pipelineLayout}>
+        {/* Sticky Active Stage Monograph */}
+        <aside className={styles.spotlightCol} aria-live="polite">
+          <div className={styles.detailCard}>
+            <div className={styles.detailHeader}>
+              <span className={styles.detailPhase}>
+                <span className={styles.detailPhaseDot} aria-hidden="true" />
+                {current.phase}
+              </span>
+              <h3 className={styles.detailTitle}>{current.title}</h3>
+            </div>
 
-        <div className={styles.detailRight}>
-          <div className={styles.outputBox}>
-            <span className={styles.outputLabel}>Stage Milestone</span>
-            <p className={styles.outputValue}>{current.output}</p>
+            <p className={styles.detailDesc}>{current.description}</p>
+
+            <div className={styles.outputBox}>
+              <span className={styles.outputLabel}>Stage Milestone</span>
+              <p className={styles.outputValue}>{current.output}</p>
+            </div>
+
+            <div className={styles.detailFooter}>
+              <div className={styles.progressMeter} aria-hidden="true">
+                <div
+                  className={styles.progressMeterFill}
+                  style={{
+                    transform: `scaleX(${
+                      (activeIndex + 1) / ACCELERATOR_STAGES.length
+                    })`,
+                  }}
+                />
+              </div>
+
+              <div className={styles.controls}>
+                <button
+                  type="button"
+                  className={styles.navArrow}
+                  disabled={activeIndex === 0}
+                  onClick={() => scrollToStage(activeIndex - 1)}
+                  aria-label="Previous pipeline stage"
+                >
+                  ← Prev
+                </button>
+                <button
+                  type="button"
+                  className={styles.navArrow}
+                  disabled={activeIndex === ACCELERATOR_STAGES.length - 1}
+                  onClick={() => scrollToStage(activeIndex + 1)}
+                  aria-label="Next pipeline stage"
+                >
+                  Next →
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        {/* Vertical Scrollable Pipeline Conduit */}
+        <div className={styles.conduitCol} ref={trackRef}>
+          {/* Structural vertical rail + live scroll-filled flow line */}
+          <div className={styles.conduitRail} aria-hidden="true">
+            <div
+              className={styles.conduitFill}
+              style={{ transform: `scaleY(${flowProgress})` }}
+            />
           </div>
 
-          <div className={styles.controls}>
-            <button
-              type="button"
-              className={styles.navArrow}
-              disabled={activeStep === 1}
-              onClick={() => handleStepChange(activeStep - 1)}
-              aria-label="Previous stage"
-            >
-              ← Prev
-            </button>
-            <button
-              type="button"
-              className={styles.navArrow}
-              disabled={activeStep === 10}
-              onClick={() => handleStepChange(activeStep + 1)}
-              aria-label="Next stage"
-            >
-              Next →
-            </button>
+          <div
+            className={styles.stationList}
+            role="list"
+            aria-label="Evidence-to-Impact Pipeline Stages"
+          >
+            {ACCELERATOR_STAGES.map((stage, idx) => {
+              const isSelected = idx === activeIndex;
+              const isPassed = idx < activeIndex;
+
+              return (
+                <button
+                  key={stage.title}
+                  ref={(el) => {
+                    stationRefs.current[idx] = el;
+                  }}
+                  type="button"
+                  role="listitem"
+                  aria-current={isSelected ? 'step' : undefined}
+                  onClick={() => scrollToStage(idx)}
+                  className={`${styles.station} ${
+                    isSelected ? styles.stationActive : ''
+                  } ${isPassed ? styles.stationPassed : ''}`}
+                >
+                  <span
+                    ref={(el) => {
+                      nodeRefs.current[idx] = el;
+                    }}
+                    className={styles.stationNode}
+                    aria-hidden="true"
+                  />
+                  <span className={styles.stationConnector} aria-hidden="true" />
+
+                  <span className={styles.stationBody}>
+                    <span className={styles.stationMeta}>{stage.phase}</span>
+                    <span className={styles.stationTitle}>{stage.title}</span>
+                    <span className={styles.stationDesc}>
+                      {stage.description}
+                    </span>
+                    <span className={styles.stationOutput}>
+                      <span className={styles.stationOutputLabel}>
+                        Milestone:
+                      </span>{' '}
+                      {stage.output}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
