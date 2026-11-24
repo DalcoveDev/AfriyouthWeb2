@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import styles from './BrandLogo.module.css';
 
 interface BrandLogoProps {
   variant?: 'color' | 'monochrome-white';
@@ -7,9 +8,9 @@ interface BrandLogoProps {
 }
 
 /**
- * Brand mark extracted from the official AfriYouth logo lockup in the brand
- * guidelines (page 3): the celebration figure with raised arms.
- * Colour version for light surfaces, white version for dark surfaces.
+ * Official AfriYouth lockup from the brand guidelines: the celebration mark
+ * beside the four-line wordmark, with "Innovation" carried in brand blue and
+ * the tagline set in Gilroy beneath.
  */
 export default function BrandLogo({
   variant = 'color',
@@ -21,12 +22,7 @@ export default function BrandLogo({
     <Link
       href="/"
       aria-label="AfriYouth Innovation Labs — Home"
-      style={{
-        display: 'inline-flex',
-        alignItems: 'center',
-        gap: '14px',
-        flexShrink: 0,
-      }}
+      className={`${styles.logo} ${isWhite ? styles.inverse : ''}`}
     >
       <Image
         src={isWhite ? '/brand/afriyouth-mark-white.svg' : '/brand/afriyouth-mark.svg'}
@@ -34,42 +30,16 @@ export default function BrandLogo({
         width={27}
         height={42}
         priority
-        style={{ height: '42px', width: 'auto' }}
+        className={styles.mark}
       />
 
-      <span
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          fontFamily: 'var(--font-heading)',
-          fontWeight: 800,
-          fontSize: '0.95rem',
-          lineHeight: 1.04,
-          letterSpacing: '-0.01em',
-          color: isWhite ? '#FFFFFF' : 'var(--ink-primary)',
-        }}
-      >
-        <span>Afri</span>
-        <span>Youth</span>
-        <span
-          style={{ color: isWhite ? 'var(--color-accent-inverse)' : 'var(--color-accent)' }}
-        >
-          Innovation
-        </span>
-        <span>Labs</span>
+      <span className={styles.wordmark}>
+        <span className={styles.line}>Afri</span>
+        <span className={styles.line}>Youth</span>
+        <span className={`${styles.line} ${styles.innovation}`}>Innovation</span>
+        <span className={styles.line}>Labs</span>
         {showTagline && (
-          <span
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontWeight: 500,
-              fontSize: '0.66rem',
-              letterSpacing: '0.02em',
-              marginTop: '4px',
-              color: isWhite ? 'rgba(255,255,255,0.75)' : 'var(--ink-muted)',
-            }}
-          >
-            Fueling Innovators for Sustainable Development
-          </span>
+          <span className={styles.tagline}>Fueling Innovators for Sustainable Development</span>
         )}
       </span>
     </Link>

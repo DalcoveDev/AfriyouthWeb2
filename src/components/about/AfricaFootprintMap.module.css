@@ -1,48 +1,76 @@
 .mapCard {
   display: flex;
   flex-direction: column;
-  background: var(--color-white);
-  border: 1px solid var(--border-hairline);
+  width: 100%;
 }
+
 
 .mapCanvas {
   position: relative;
+  display: flex;
+  justify-content: center;
   width: 100%;
-  background: #FFFFFF;
   overflow: hidden;
 }
 
+/* Capped by height so the map always fits the viewport instead of
+   running the full 0.94:1 aspect ratio off the bottom of the screen. */
 .svg {
   display: block;
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: min(72vh, 690px);
+  max-width: 100%;
   user-select: none;
+  /* Dissolve the cropped land edges into the mist band instead of cutting
+     them off with a hard rectangle. */
+  -webkit-mask-image:
+    linear-gradient(to bottom, transparent 0, #000 130px),
+    linear-gradient(to right, transparent 0, #000 46px, #000 calc(100% - 46px), transparent 100%);
+  mask-image:
+    linear-gradient(to bottom, transparent 0, #000 130px),
+    linear-gradient(to right, transparent 0, #000 46px, #000 calc(100% - 46px), transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
-/* Surrounding non-African context countries */
+@media (max-width: 900px) {
+  /* Narrow screens: crop in on Africa so the map type stays legible
+     instead of shrinking the whole world frame to a smudge. */
+  .svg {
+    width: 168%;
+    height: auto;
+    margin-left: -33%;
+  }
+}
+
+/* Continents framing the map — same tone as the context layer so the
+   two read as one continuous land mass around Africa. */
+/* Surrounding non-African land — one tone for both layers so the
+   Mediterranean / Middle East countries merge into the world frame. */
+.worldCountry,
 .contextCountry {
-  fill: #F5F5F9;
-  stroke: #E4E3EE;
-  stroke-width: 0.7;
+  fill: #E9E7F1;
+  stroke: #FFFFFF;
+  stroke-width: 0.9;
 }
 
-/* African countries — Brand Mist & Lavender palette */
+/* African countries — land sits a step deeper than the mist band */
 .countryBase {
-  fill: #ECEBF7;
-  stroke: #B9B6DC;
+  fill: #D2CFE4;
+  stroke: #FFFFFF;
   stroke-width: 1;
   transition: fill 200ms ease;
 }
 
 .countryBase:hover {
-  fill: #E1DFF5;
+  fill: #CBC8E0;
 }
 
 /* East African regional corridor around Rwanda */
 .countryNeighbor {
-  fill: #DCD9FE;
-  stroke: #8580E8;
-  stroke-width: 1.15;
+  fill: var(--brand-lavender);
+  stroke: #FFFFFF;
+  stroke-width: 1;
 }
 
 /* Active Country — Rwanda (#0301FF brand blue + #C723DF signal accent) */
@@ -92,18 +120,20 @@
   pointer-events: none;
 }
 
-.oceanText text {
+.oceanText text,
+.oceanInk {
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.22em;
   fill: #9894AD;
+  pointer-events: none;
 }
 
 /* Kigali Beacon & Callout Pill */
 .kigaliRing {
   fill: rgba(199, 35, 223, 0.18);
-  stroke: var(--brand-pink);
+  stroke: var(--brand-magenta);
   stroke-width: 1.6;
 }
 
@@ -153,7 +183,7 @@
 
 .insetRwanda {
   fill: var(--brand-blue);
-  stroke: var(--brand-pink);
+  stroke: var(--brand-magenta);
   stroke-width: 0.55;
 }
 
@@ -188,49 +218,3 @@
   fill: var(--ink-secondary);
 }
 
-/* Legend Bar */
-.legend {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 12px 24px;
-  padding: 16px 20px;
-  background: var(--surface-subtle);
-  border-top: 1px solid var(--border-hairline);
-  font-size: 0.83rem;
-  line-height: 1.45;
-  color: var(--ink-secondary);
-}
-
-.legendItem {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.legendItem strong {
-  color: var(--ink-primary);
-  font-weight: 600;
-}
-
-.swatch {
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  flex-shrink: 0;
-}
-
-.swatchActive {
-  background: var(--brand-blue);
-  box-shadow: 0 0 0 2px var(--brand-pink);
-}
-
-.swatchRegion {
-  background: #DCD9FE;
-  border: 1px solid #8580E8;
-}
-
-.swatchContinent {
-  background: #ECEBF7;
-  border: 1px solid #B9B6DC;
-}

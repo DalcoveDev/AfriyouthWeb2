@@ -1,21 +1,20 @@
 .cover {
   position: relative;
-  isolation: isolate;
   display: flex;
   flex-direction: column;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background: var(--brand-duke-blue);
-  color: var(--color-white);
+  background: var(--brand-ink);
+  color: #ffffff;
 }
 
 .compact {
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 4 / 5;
 }
 
 .photoArea {
   position: relative;
-  flex: 1 1 56%;
+  flex: 0 0 46%;
   min-height: 0;
   overflow: hidden;
   background: var(--brand-ink);
@@ -23,66 +22,40 @@
 
 .photo {
   object-fit: cover;
-  object-position: center 30%;
-  transition: transform 650ms var(--ease-editorial);
+  object-position: center 32%;
+  transition: transform 750ms var(--ease-editorial);
 }
 
 .cover:hover .photo {
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
 
 .photoScrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(13, 6, 36, 0.58) 0%,
-    rgba(13, 6, 36, 0.08) 50%,
-    rgba(13, 6, 36, 0.25) 100%
-  );
-}
-
-.brand {
-  position: absolute;
-  top: 14px;
-  left: 16px;
-  z-index: 1;
-  font-family: var(--font-heading);
-  font-size: 0.62rem;
-  font-weight: 700;
-  line-height: 1.18;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: #FFFFFF;
+  background: linear-gradient(180deg, rgba(13, 6, 36, 0.12) 0%, rgba(13, 6, 36, 0.42) 100%);
 }
 
 .bottom {
-  position: relative;
-  isolation: isolate;
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 5px;
-  padding: clamp(14px, 1.5vw, 20px) clamp(16px, 1.6vw, 22px);
-  overflow: hidden;
+  gap: 7px;
+  padding: clamp(16px, 1.7vw, 22px);
+  background: var(--brand-duke-blue);
 }
 
 .blue .bottom {
-  background:
-    radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.2) 0%, transparent 60%),
-    linear-gradient(155deg, var(--brand-blue) 0%, var(--brand-duke-blue) 100%);
+  background: var(--brand-blue);
 }
 
 .pink .bottom {
-  background:
-    radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.18) 0%, transparent 55%),
-    linear-gradient(155deg, #a116b8 0%, #5f0b73 100%);
+  background: var(--brand-magenta-ink);
 }
 
 .ink .bottom {
-  background:
-    radial-gradient(130% 100% at 90% 0%, rgba(201, 200, 255, 0.2) 0%, transparent 60%),
-    linear-gradient(160deg, #211647 0%, var(--brand-ink) 100%);
+  background: var(--brand-ink);
 }
 
 .lavender {
@@ -90,58 +63,36 @@
 }
 
 .lavender .bottom {
-  background:
-    radial-gradient(120% 90% at 100% 0%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
-    linear-gradient(155deg, var(--brand-lavender) 0%, #a9a7f6 100%);
+  background: var(--brand-lavender);
   color: var(--brand-ink);
 }
 
-.arcs {
-  position: absolute;
-  right: -16%;
-  bottom: -28%;
-  width: 64%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-  opacity: 0.2;
-  z-index: -1;
-}
-
-.arcs::before {
-  content: '';
-  position: absolute;
-  inset: 18%;
-  border-radius: 50%;
-  border: 1px solid currentColor;
-}
-
 .rule {
-  width: 30px;
-  height: 2px;
-  margin-bottom: 3px;
+  width: 26px;
+  height: 1px;
+  margin-bottom: 4px;
   background: currentColor;
-  opacity: 0.85;
+  opacity: 0.7;
 }
 
 .series {
-  font-family: var(--font-heading);
-  font-size: clamp(0.96rem, 1.25vw, 1.18rem);
+  font-family: var(--font-display);
+  font-size: clamp(1.22rem, 1.55vw, 1.52rem);
   font-weight: 600;
-  line-height: 1.16;
-  letter-spacing: -0.02em;
-  max-width: 17ch;
+  line-height: 1.03;
+  letter-spacing: -0.015em;
+  max-width: 14ch;
 }
 
 .compact .series {
-  font-size: 0.96rem;
-  max-width: 20ch;
+  font-size: 1.15rem;
+  max-width: 18ch;
 }
 
 .category {
-  font-size: 0.64rem;
+  font-family: var(--font-heading);
+  font-size: 0.68rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.9;
+  letter-spacing: 0.01em;
+  opacity: 0.82;
 }

@@ -3,21 +3,29 @@
 import { useState } from 'react';
 import styles from './Footer.module.css';
 
+const INBOX = 'info@afriyouthlabs.org';
+
 export default function FooterNewsletter() {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!email.trim()) return;
+    const address = email.trim();
+    if (!address) return;
+
+    const subject = 'Newsletter subscription request';
+    const body = `Please add this address to the AfriYouth Innovation Labs updates list:\r\n\r\n${address}`;
+    window.location.href = `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSubscribed(true);
   };
 
   if (subscribed) {
     return (
       <p className={styles.subscribeNotice} role="status" aria-live="polite">
-        Thank you. Updates on research, programmes and partnership calls will be sent to{' '}
-        <strong>{email}</strong>.
+        Your email app should now open to confirm the subscription for{' '}
+        <strong>{email}</strong>. If nothing opened, write to{' '}
+        <a href={`mailto:${INBOX}`}>{INBOX}</a>.
       </p>
     );
   }

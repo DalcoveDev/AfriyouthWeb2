@@ -1,0 +1,173 @@
+/* Partner organizations — floating wordmark cards drifting in one row */
+
+.section {
+  padding: var(--section-pad) 0;
+  overflow: hidden;
+}
+
+.compact {
+  padding: clamp(48px, 6vw, 80px) 0;
+}
+
+.page {
+  background: var(--surface-page);
+}
+
+.subtle {
+  background: var(--surface-subtle);
+}
+
+.ink {
+  background: var(--surface-ink);
+  color: var(--ink-inverse);
+}
+
+.head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: clamp(24px, 5vw, 80px);
+  align-items: end;
+  padding-bottom: clamp(24px, 3vw, 34px);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.title {
+  margin-top: 14px;
+  font-size: clamp(1.9rem, 3.2vw, 2.7rem);
+  letter-spacing: -0.024em;
+  line-height: 1.02;
+}
+
+.lead {
+  max-width: 52ch;
+  padding-bottom: 4px;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+}
+
+.ink .lead {
+  color: var(--ink-inverse-muted);
+}
+
+/* Floating card marquee */
+.marquee {
+  --marquee-gap: clamp(16px, 2vw, 24px);
+
+  margin-top: clamp(28px, 3.6vw, 42px);
+  padding-block: 10px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 5%,
+    #000 95%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(90deg, transparent 0, #000 5%, #000 95%, transparent 100%);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  list-style: none;
+  animation: partner-drift 52s linear infinite;
+}
+
+.marquee:hover .track {
+  animation-play-state: paused;
+}
+
+.card {
+  flex: 0 0 clamp(220px, 21vw, 280px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-right: var(--marquee-gap);
+  padding: 24px 26px;
+  background: var(--surface-page);
+  border: 1px solid var(--border-hairline);
+  box-shadow: 0 22px 44px -30px rgba(13, 6, 36, 0.55);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--border-hairline-strong);
+  box-shadow: 0 26px 50px -28px rgba(13, 6, 36, 0.6);
+}
+
+.name {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--ink-primary);
+}
+
+.category {
+  margin-top: auto;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-text);
+}
+
+.location {
+  font-size: 0.84rem;
+  line-height: 1.45;
+  color: var(--ink-muted);
+}
+
+.ink .card {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-inverse);
+  box-shadow: 0 22px 44px -30px rgba(0, 0, 0, 0.8);
+}
+
+.ink .name {
+  color: var(--ink-inverse);
+}
+
+.ink .category {
+  color: var(--color-accent-inverse);
+}
+
+.ink .location {
+  color: var(--ink-inverse-muted);
+}
+
+@keyframes partner-drift {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .head {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+
+  .marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}

@@ -1,0 +1,84 @@
+.list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px 22px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-family: var(--font-heading);
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--ink-secondary);
+  transition: color var(--transition-base);
+}
+
+.link:hover {
+  color: var(--color-accent);
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  flex: none;
+}
+
+/* Dense row — fits five labels in a narrow column */
+.dense {
+  gap: 2px 14px;
+}
+
+.dense .link {
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.dense .icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* Icon tiles — used in the footer */
+.icons {
+  gap: 8px;
+}
+
+.icons .link {
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  min-height: 42px;
+  border: 1px solid var(--border-hairline-strong);
+  color: var(--ink-primary);
+  transition:
+    color var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.icons .link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.inverse .link {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.inverse .link:hover {
+  color: #ffffff;
+}
+
+.inverse.icons .link {
+  border-color: rgba(255, 255, 255, 0.24);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.inverse.icons .link:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}

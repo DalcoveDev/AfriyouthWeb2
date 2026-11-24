@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
 import ArrowLink from '@/components/ArrowLink';
+import PartnerOrganizations from '@/components/PartnerOrganizations';
+import Testimonials from '@/components/Testimonials';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -96,6 +98,19 @@ export default function PartnershipsPage() {
           </div>
         </div>
       </section>
+
+      <PartnerOrganizations
+        background="page"
+        title="Organizations in our partner network"
+        lead="Universities, NGOs, foundations, think tanks and enterprises we work with across research, policy and innovation."
+      />
+
+      <Testimonials
+        background="subtle"
+        audience="partner"
+        title="What partners say"
+        lead="Institutional partners on the value of shared evidence goals, transparent measurement and co-created programmes."
+      />
     </>
   );
 }

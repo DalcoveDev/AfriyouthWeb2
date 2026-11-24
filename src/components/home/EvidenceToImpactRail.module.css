@@ -2,12 +2,12 @@
   color: var(--color-white);
 }
 
-/* Macro Phase Continuum */
+/* Macro phase continuum */
 .phaseBar {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-bottom: clamp(28px, 4vw, 48px);
+  gap: 20px;
+  margin-bottom: clamp(30px, 4vw, 48px);
 }
 
 .phaseItem {
@@ -15,13 +15,14 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px 16px 14px 0;
-  border-top: 2px solid rgba(255, 255, 255, 0.16);
+  min-height: 48px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
   font-family: var(--font-heading);
-  font-size: 0.9rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  color: rgba(255, 255, 255, 0.48);
   text-align: left;
   transition:
     color var(--transition-base),
@@ -29,35 +30,34 @@
 }
 
 .phaseItem:hover {
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.86);
 }
 
 .phasePassed {
-  border-top-color: var(--color-accent);
-  color: rgba(255, 255, 255, 0.82);
+  border-top-color: rgba(255, 255, 255, 0.55);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 .phaseActive {
-  border-top-color: var(--color-signal);
-  color: var(--color-white);
+  border-top-color: var(--brand-lavender);
+  color: #ffffff;
 }
 
 .phaseDot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.25);
+  width: 5px;
+  height: 5px;
   flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.3);
   transition: background-color var(--transition-base), transform var(--transition-base);
 }
 
 .phasePassed .phaseDot {
-  background: var(--color-accent);
+  background: rgba(255, 255, 255, 0.65);
 }
 
 .phaseActive .phaseDot {
-  background: var(--color-signal);
-  transform: scale(1.25);
+  background: var(--brand-lavender);
+  transform: scale(1.3);
 }
 
 .phaseName {
@@ -65,11 +65,11 @@
 }
 
 .phaseArrow {
-  font-size: 0.85rem;
-  opacity: 0.4;
+  font-size: 0.9rem;
+  opacity: 0.35;
 }
 
-/* Two-Column Pipeline Layout */
+/* Two-column pipeline */
 .pipelineLayout {
   display: grid;
   grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
@@ -77,7 +77,6 @@
   align-items: start;
 }
 
-/* Sticky Left Spotlight */
 .spotlightCol {
   position: sticky;
   top: 108px;
@@ -88,16 +87,26 @@
   flex-direction: column;
   gap: 20px;
   padding: clamp(26px, 3.2vw, 38px);
-  border-radius: var(--radius-card);
-  background: var(--color-cream);
+  background: #ffffff;
   color: var(--ink-primary);
-  border-top: 3px solid var(--color-accent);
+  border-top: 2px solid var(--color-accent);
 }
 
 .detailHeader {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+}
+
+.detailIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 6px;
+  border: 1px solid var(--border-hairline-strong);
+  color: var(--color-accent-text);
 }
 
 .detailPhase {
@@ -105,54 +114,54 @@
   align-items: center;
   gap: 8px;
   font-family: var(--font-heading);
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 500;
   letter-spacing: 0.02em;
-  color: var(--color-accent-text);
+  color: var(--ink-muted);
 }
 
 .detailPhaseDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
+  width: 5px;
+  height: 5px;
   background: var(--color-signal);
 }
 
 .detailTitle {
-  font-size: clamp(1.65rem, 2.8vw, 2.2rem);
-  letter-spacing: -0.03em;
-  line-height: 1.08;
+  font-family: var(--font-display);
+  font-size: clamp(1.9rem, 3vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.022em;
+  line-height: 1;
   color: var(--ink-primary);
 }
 
 .detailDesc {
-  font-size: 1.02rem;
+  font-size: 0.96rem;
   line-height: 1.65;
   color: var(--ink-secondary);
 }
 
 .outputBox {
-  background: var(--color-white);
-  border-left: 2px solid var(--color-signal);
-  border-radius: var(--radius-editorial);
-  padding: 16px 18px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border-hairline);
+  border-bottom: 1px solid var(--border-hairline);
 }
 
 .outputLabel {
   display: block;
+  margin-bottom: 5px;
   font-family: var(--font-heading);
-  font-size: 0.76rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--ink-muted);
-  margin-bottom: 5px;
 }
 
 .outputValue {
   font-family: var(--font-heading);
-  font-size: 1.02rem;
+  font-size: 0.96rem;
   font-weight: 600;
-  line-height: 1.35;
+  line-height: 1.4;
   color: var(--ink-primary);
 }
 
@@ -160,13 +169,13 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding-top: 6px;
+  padding-top: 4px;
 }
 
 .progressMeter {
   position: relative;
   width: 100%;
-  height: 2px;
+  height: 1px;
   background: var(--border-hairline);
   overflow: hidden;
 }
@@ -174,7 +183,7 @@
 .progressMeterFill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-signal));
+  background: var(--color-accent);
   transform-origin: left center;
   transition: transform 280ms var(--ease-editorial);
 }
@@ -185,21 +194,23 @@
 }
 
 .navArrow {
-  font-family: var(--font-heading);
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 9px 16px;
+  min-height: 40px;
+  padding: 9px 14px;
   border: 1px solid var(--border-hairline-strong);
-  border-radius: var(--radius-pill);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  font-weight: 500;
   color: var(--ink-primary);
   transition:
     border-color var(--transition-base),
-    background-color var(--transition-base);
+    background-color var(--transition-base),
+    color var(--transition-base);
 }
 
 .navArrow:hover:not(:disabled) {
   border-color: var(--ink-primary);
-  background: var(--color-white);
+  background: var(--ink-primary);
+  color: #ffffff;
 }
 
 .navArrow:disabled {
@@ -207,7 +218,7 @@
   cursor: not-allowed;
 }
 
-/* Right Column: Physical Pipeline Conduit */
+/* Right column conduit */
 .conduitCol {
   position: relative;
   padding-left: 40px;
@@ -218,18 +229,14 @@
   left: 10px;
   top: 32px;
   bottom: 32px;
-  width: 2px;
-  background: rgba(255, 255, 255, 0.14);
+  width: 1px;
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .conduitFill {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    var(--color-accent) 0%,
-    var(--color-signal) 100%
-  );
+  background: var(--brand-lavender);
   transform-origin: top center;
   transition: transform 90ms linear;
 }
@@ -237,7 +244,7 @@
 .stationList {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 .station {
@@ -246,41 +253,38 @@
   text-align: left;
   display: flex;
   align-items: flex-start;
-  padding: 22px 26px;
-  min-height: 92px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: var(--radius-editorial);
+  padding: 20px 22px;
+  min-height: 84px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
   transition:
     background-color var(--transition-base),
     border-color var(--transition-base);
 }
 
 .station:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 .stationPassed {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(201, 200, 255, 0.22);
+  border-color: rgba(201, 200, 255, 0.26);
 }
 
 .stationActive {
-  background: rgba(255, 255, 255, 0.11);
-  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(201, 200, 255, 0.5);
 }
 
-/* Junction Node sitting on the vertical conduit */
 .stationNode {
   position: absolute;
   left: -38px;
-  top: 29px;
-  width: 16px;
-  height: 16px;
+  top: 27px;
+  width: 11px;
+  height: 11px;
   border-radius: 50%;
-  background: var(--color-green-900);
-  border: 2px solid rgba(255, 255, 255, 0.32);
+  background: var(--brand-ink);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   z-index: 2;
   transition:
     background-color var(--transition-base),
@@ -290,73 +294,84 @@
 }
 
 .stationPassed .stationNode {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
+  background: var(--brand-lavender);
+  border-color: var(--brand-lavender);
 }
 
 .stationActive .stationNode {
-  background: var(--color-signal);
-  border-color: var(--color-white);
-  box-shadow: 0 0 0 6px rgba(199, 35, 223, 0.24);
-  transform: scale(1.18);
+  background: var(--brand-lavender);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 5px rgba(201, 200, 255, 0.18);
+  transform: scale(1.1);
 }
 
-/* Horizontal branch connector from conduit node to station card */
 .stationConnector {
   position: absolute;
-  left: -22px;
-  top: 36px;
-  width: 22px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.14);
+  left: -28px;
+  top: 32px;
+  width: 28px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.16);
   transition: background-color var(--transition-base);
 }
 
-.stationPassed .stationConnector {
-  background: var(--color-accent);
-}
-
+.stationPassed .stationConnector,
 .stationActive .stationConnector {
-  background: var(--color-signal);
+  background: rgba(201, 200, 255, 0.5);
 }
 
 .stationBody {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 5px;
   width: 100%;
 }
 
 .stationMeta {
   font-family: var(--font-heading);
-  font-size: 0.74rem;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: var(--color-accent-inverse);
-  opacity: 0.78;
+  color: rgba(255, 255, 255, 0.44);
 }
 
 .stationActive .stationMeta {
-  opacity: 1;
-  color: #f4b3ff;
+  color: var(--brand-lavender);
+}
+
+.stationTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stationIcon {
+  display: inline-flex;
+  flex: none;
+  color: rgba(255, 255, 255, 0.45);
+  transition: color var(--transition-base);
+}
+
+.stationActive .stationIcon,
+.stationPassed .stationIcon {
+  color: var(--brand-lavender);
 }
 
 .stationTitle {
   font-family: var(--font-heading);
-  font-size: 1.18rem;
+  font-size: 1.08rem;
   font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.72);
   transition: color var(--transition-base);
 }
 
 .stationPassed .stationTitle,
 .stationActive .stationTitle {
-  color: var(--color-white);
+  color: #ffffff;
 }
 
-/* Inline description & milestone are shown on mobile where sticky spotlight hides */
 .stationDesc,
 .stationOutput {
   display: none;
@@ -365,7 +380,7 @@
 @media (max-width: 900px) {
   .phaseBar {
     grid-template-columns: 1fr;
-    gap: 6px;
+    gap: 0;
   }
 
   .phaseArrow {
@@ -390,13 +405,13 @@
 
   .stationNode {
     left: -32px;
-    top: 24px;
+    top: 23px;
   }
 
   .stationConnector {
-    left: -16px;
-    top: 31px;
-    width: 16px;
+    left: -22px;
+    top: 28px;
+    width: 22px;
   }
 
   .stationDesc {
@@ -404,7 +419,7 @@
     margin-top: 6px;
     font-size: 0.92rem;
     line-height: 1.55;
-    color: var(--ink-inverse-muted);
+    color: rgba(255, 255, 255, 0.66);
   }
 
   .stationOutput {
@@ -413,13 +428,13 @@
     padding-top: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
     font-family: var(--font-heading);
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    color: var(--color-white);
+    color: #ffffff;
   }
 
   .stationOutputLabel {
-    color: var(--color-accent-inverse);
+    color: var(--brand-lavender);
     font-weight: 500;
   }
 }

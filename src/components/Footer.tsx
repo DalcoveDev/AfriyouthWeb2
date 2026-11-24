@@ -2,6 +2,7 @@ import Link from 'next/link';
 import ArrowLink from './ArrowLink';
 import BrandLogo from './BrandLogo';
 import FooterNewsletter from './FooterNewsletter';
+import SocialLinks from './SocialLinks';
 import styles from './Footer.module.css';
 
 const PRIMARY_LINKS = [
@@ -25,13 +26,29 @@ export default async function Footer() {
     <footer className={styles.footer}>
       <div className="container">
         <div className={styles.top}>
-          <BrandLogo variant="monochrome-white" showTagline />
-          <p className={styles.creed}>Creating impact together.</p>
+          <p className={styles.statement}>Creating impact together.</p>
+          <p className={styles.creed}>
+            Research, human-centred design and enterprise in one continuum — built with
+            Africa&rsquo;s young people.
+          </p>
         </div>
 
         <div className={styles.grid}>
-          <div>
-            <h3 className={styles.colTitle}>Organization</h3>
+          <div className={styles.brandCol}>
+            <BrandLogo variant="monochrome-white" showTagline />
+            <p className={styles.summary}>
+              An African research, innovation and policy organisation turning
+              community-driven ideas into practical, evidence-based solutions.
+            </p>
+            <p className={styles.location}>Kigali, Rwanda</p>
+            <div className={styles.social}>
+              <h3 className={styles.socialTitle}>Follow</h3>
+              <SocialLinks tone="inverse" variant="icons" />
+            </div>
+          </div>
+
+          <nav aria-label="Footer organisation links">
+            <h3 className={styles.colTitle}>Organisation</h3>
             <ul className={styles.primaryList}>
               {PRIMARY_LINKS.map((link) => (
                 <li key={link.href}>
@@ -39,9 +56,9 @@ export default async function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          <div>
+          <nav aria-label="Footer engagement links">
             <h3 className={styles.colTitle}>Engage</h3>
             <ul className={styles.secondaryList}>
               {SECONDARY_LINKS.map((link) => (
@@ -50,22 +67,16 @@ export default async function Footer() {
                 </li>
               ))}
             </ul>
-
-            <p className={styles.summary}>
-              An African research, innovation and policy organisation turning
-              community-driven ideas into practical, evidence-based solutions.
-            </p>
             <p className={styles.philosophy}>
               Think → Research → Design → Build → Influence → Scale
             </p>
-          </div>
+          </nav>
 
           <div className={styles.connect}>
-            <span className={styles.connectRule} aria-hidden="true" />
-            <h3 className={styles.connectTitle}>Stay Connected</h3>
+            <h3 className={styles.colTitle}>Stay in the loop</h3>
             <p className={styles.connectBody}>
-              Subscribe to receive new Evidence Reports, Africa 2050 foresight briefs, and
-              cohort announcements, or partner with our labs.
+              New Evidence Reports, Africa 2050 foresight briefs and cohort announcements,
+              twice a term.
             </p>
             <FooterNewsletter />
             <div className={styles.partnerRow}>
@@ -78,10 +89,10 @@ export default async function Footer() {
 
         <div className={styles.bottom}>
           <span>© {new Date().getFullYear()} AfriYouth Innovation Labs.</span>
-          <span>Fueling Innovators for Sustainable Development.</span>
           <span className={styles.legal}>
-            <Link href="/faq">Privacy</Link> · <Link href="/faq">Accessibility</Link> ·{' '}
-            <Link href="/contact">Safeguarding</Link>
+            <a href="mailto:info@afriyouthlabs.org?subject=Privacy%2C%20accessibility%20or%20safeguarding%20question">
+              Privacy, accessibility &amp; safeguarding
+            </a>
           </span>
         </div>
       </div>

@@ -5,7 +5,11 @@ import PageHeader from '@/components/PageHeader';
 import EditorialImageSlot from '@/components/EditorialImageSlot';
 import ArrowLink from '@/components/ArrowLink';
 import ArrowIcon from '@/components/ArrowIcon';
+import LineIcon, { type LineIconName } from '@/components/LineIcon';
+import SocialLinks from '@/components/SocialLinks';
 import AfricaFootprintMap from '@/components/about/AfricaFootprintMap';
+import PartnerOrganizations from '@/components/PartnerOrganizations';
+import Testimonials from '@/components/Testimonials';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -14,31 +18,41 @@ export const metadata: Metadata = {
     'AfriYouth Innovation Labs is an African research, innovation and policy consulting firm identifying, nurturing and advancing promising ideas from Africa’s young innovators.',
 };
 
-const DIVISIONS = [
+const DIVISIONS: Array<{
+  id: string;
+  division: string;
+  products: string;
+  icon: LineIconName;
+}> = [
   {
     id: 'research-lab',
     division: 'Research & Evidence',
     products: 'Evidence Reports, Surveys, Impact Studies',
+    icon: 'book',
   },
   {
     id: 'policy-lab',
     division: 'Policy & Governance',
     products: 'Policy Lab, Policy Papers, Policy Innovation Challenges',
+    icon: 'building',
   },
   {
     id: 'venture-lab',
     division: 'Innovation & Entrepreneurship',
     products: 'Innovation Accelerator, HCD Lab',
+    icon: 'lightbulb',
   },
   {
     id: 'foresight-lab',
     division: 'Foresight & Futures',
     products: 'Africa 2030/2050 Scenarios, Futures Studies',
+    icon: 'eye',
   },
   {
     id: 'career-academy',
     division: 'Leadership & Capacity Building',
     products: 'Employability Skills Lab, Professional Skills Academy, Impact & Learning Services',
+    icon: 'people',
   },
 ];
 
@@ -182,42 +196,23 @@ export default function AboutPage() {
       </section>
 
       {/* 3. Where We Work — Rwanda Operational Footprint & Continental Map */}
-      <section className={styles.section} id="where-we-work">
-        <div className={`container ${styles.footprintSplit}`}>
-          <div className={styles.footprintCopy}>
-            <span className="section-rule" aria-hidden="true" />
-            <h2 className={styles.h2}>Where We Work: Rooted in Rwanda, Built for Africa</h2>
-            <p className={styles.prose}>
-              AfriYouth Innovation Labs currently operates out of <strong>Kigali, Rwanda</strong>—working
-              alongside young innovators, university students, researchers, and public-interest
-              institutions to generate field evidence, co-design prototypes, and build career
-              readiness.
-            </p>
+      <section className={styles.footprint} id="where-we-work">
+        <div className={styles.footprintHead}>
+          <h2 className={`${styles.h2} ${styles.footprintTitle}`}>
+            Where We Work: Rooted in Rwanda, Built for Africa
+          </h2>
+          <p className={styles.footprintLead}>
+            AfriYouth Innovation Labs currently operates out of <strong>Kigali, Rwanda</strong>, working
+            with young innovators, universities, researchers and public-interest institutions across the
+            continent.
+          </p>
+          <Link href="/contact" className={styles.footprintBtn}>
+            Connect with our Kigali team
+          </Link>
+        </div>
 
-            <dl className={styles.footprintMeta}>
-              <div className={styles.footprintRow}>
-                <dt>Current Operational Hub</dt>
-                <dd>Kigali Innovation City, Gasabo District, KG 7 Ave — Kigali, Rwanda</dd>
-              </div>
-              <div className={styles.footprintRow}>
-                <dt>Active Focus in Rwanda</dt>
-                <dd>
-                  Youth Innovation &amp; Venture Lab, Applied Socio-Economic Research, Policy
-                  Innovation Challenges, and Graduate Employability Simulations
-                </dd>
-              </div>
-              <div className={styles.footprintRow}>
-                <dt>Direct Desk &amp; Inquiries</dt>
-                <dd>info@afriyouthlabs.org · partnerships@afriyouthlabs.org · +250 788 123 456</dd>
-              </div>
-            </dl>
-
-            <ArrowLink href="/contact">Connect with our Kigali team</ArrowLink>
-          </div>
-
-          <div className={styles.footprintMapCol}>
-            <AfricaFootprintMap />
-          </div>
+        <div className={styles.footprintMap}>
+          <AfricaFootprintMap />
         </div>
       </section>
 
@@ -275,6 +270,9 @@ export default function AboutPage() {
           <ul className={styles.divisionList}>
             {DIVISIONS.map((item) => (
               <li key={item.division} className={styles.divisionRow}>
+                <span className={styles.divisionIcon} aria-hidden="true">
+                  <LineIcon name={item.icon} size={22} />
+                </span>
                 <div className={styles.divisionBody}>
                   <h3 className={styles.divisionName}>{item.division}</h3>
                   <p className={styles.divisionProducts}>{item.products}</p>
@@ -296,7 +294,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 6. Brand Cornerstones */}
+      {/* 6. Partner Organizations */}
+      <PartnerOrganizations
+        compact
+        background="page"
+        title="Organizations we learn and build with"
+        lead="Our work connects academic institutions, civil-society organizations, foundations and enterprises around shared evidence goals."
+      />
+
+      {/* 7. Brand Cornerstones */}
       <section className={styles.mist}>
         <div className="container">
           <header className={styles.sectionHeader}>
@@ -319,7 +325,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 7. Documentary Strip */}
+      {/* 8. Documentary Strip */}
       <section className={styles.strip} aria-label="AfriYouth programme photography">
         <div className={styles.stripTrack}>
           {STRIP_PHOTOS.map((photo) => (
@@ -336,7 +342,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 8. Governance & Team */}
+      {/* 9. Governance & Team */}
       <section className={styles.section}>
         <div className="container">
           <div className={styles.governanceCard}>
@@ -349,6 +355,28 @@ export default function AboutPage() {
               and youth accountability.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* 10. Testimonials */}
+      <Testimonials
+        background="page"
+        title="Voices from our community"
+        lead="Participants, founders and institutional partners describe what the work makes possible."
+      />
+
+      {/* 11. Follow the work */}
+      <section className={styles.socialBand}>
+        <div className={`container ${styles.socialInner}`}>
+          <div className={styles.socialCopy}>
+            <span className="section-rule" aria-hidden="true" />
+            <h2 className={styles.socialTitle}>Follow AfriYouth</h2>
+            <p className={styles.socialLead}>
+              Programme updates, field evidence and policy dialogue from across the five labs —
+              published on the channels where our community already gathers.
+            </p>
+          </div>
+          <SocialLinks />
         </div>
       </section>
     </>

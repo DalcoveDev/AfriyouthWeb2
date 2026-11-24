@@ -12,6 +12,14 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Local agent tooling and scratch folders — not part of the app.
+    ".agents/**",
+    ".claude/**",
+    ".codex/**",
+    ".freebuff/**",
+    ".impeccable/**",
+    ".opencode/**",
+    ".tmp-*/**",
   ]),
 ]);
 

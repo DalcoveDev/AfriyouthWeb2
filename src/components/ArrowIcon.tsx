@@ -1,19 +1,25 @@
-export default function ArrowIcon() {
+interface ArrowIconProps {
+  className?: string;
+}
+
+/** Diagonal arrow: reads as "open / continue", and is less templated than a chevron. */
+export default function ArrowIcon({ className }: ArrowIconProps = {}) {
   return (
     <svg
-      viewBox="0 0 34 14"
-      width={34}
+      className={className}
+      viewBox="0 0 16 16"
+      width={14}
       height={14}
       fill="none"
       aria-hidden="true"
       focusable="false"
     >
       <path
-        d="M1 7h30M25 1.5 31 7l-6 5.5"
+        d="M3.5 12.5 12.5 3.5M5.5 3.5h7v7"
         stroke="currentColor"
         strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
       />
     </svg>
   );

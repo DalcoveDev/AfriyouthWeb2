@@ -7,60 +7,33 @@ interface PageHeaderProps {
   image: string;
   imageAlt: string;
   /**
-   * 'immersion' (default): full-width documentary frame with bottom-weighted editorial scrim.
-   * 'split': asymmetric editorial split header (typographic column + un-scrimmed documentary image).
+   * Retained for call-site compatibility. Every route now uses the same
+   * editorial opening so the site reads as one publication.
    */
   variant?: 'immersion' | 'split';
 }
 
-export default function PageHeader({
-  title,
-  lead,
-  image,
-  imageAlt,
-  variant = 'immersion',
-}: PageHeaderProps) {
-  if (variant === 'split') {
-    return (
-      <section className={styles.splitHero}>
-        <div className={`container ${styles.splitGrid}`}>
-          <div className={styles.splitCopy}>
-            <span className={styles.splitRule} aria-hidden="true" />
-            <h1 className={styles.splitTitle}>{title}</h1>
-            <p className={styles.splitLead}>{lead}</p>
-          </div>
-          <div className={styles.splitMedia}>
+export default function PageHeader({ title, lead, image, imageAlt }: PageHeaderProps) {
+  return (
+    <section className={styles.opening}>
+      <div className={`container ${styles.inner}`}>
+        <div className={styles.copy}>
+          <h1 className={styles.title}>{title}</h1>
+          <p className={styles.lead}>{lead}</p>
+        </div>
+
+        <figure className={styles.figure}>
+          <div className={styles.media}>
             <Image
               src={image}
               alt={imageAlt}
               fill
               priority
-              sizes="(max-width: 960px) 100vw, 48vw"
-              className={styles.splitImage}
+              sizes="(max-width: 1320px) 100vw, 1320px"
+              className={styles.image}
             />
           </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section className={styles.hero}>
-      <div className={`container ${styles.frame}`}>
-        <Image
-          src={image}
-          alt={imageAlt}
-          fill
-          priority
-          sizes="(max-width: 1410px) 100vw, 1410px"
-          className={styles.image}
-        />
-        <div className={styles.scrim} aria-hidden="true" />
-        <div className={styles.body}>
-          <span className={styles.heroRule} aria-hidden="true" />
-          <h1 className={styles.title}>{title}</h1>
-          <p className={styles.lead}>{lead}</p>
-        </div>
+        </figure>
       </div>
     </section>
   );

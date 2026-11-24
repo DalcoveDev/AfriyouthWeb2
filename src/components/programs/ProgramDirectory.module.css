@@ -9,22 +9,22 @@
 }
 
 .heading {
-  font-size: clamp(1.7rem, 2.8vw, 2.3rem);
-  letter-spacing: -0.03em;
-  line-height: 1.1;
+  font-size: clamp(2rem, 3.4vw, 2.9rem);
+  letter-spacing: -0.022em;
+  line-height: 1;
   margin-bottom: 14px;
 }
 
 .lead {
   font-size: 0.98rem;
-  line-height: 1.65;
+  line-height: 1.66;
   color: var(--ink-secondary);
   max-width: 56ch;
 }
 
 .accuracyNote {
   background: var(--surface-subtle);
-  border-left: 2px solid var(--color-signal);
+  border-left: 1px solid var(--border-hairline-strong);
   padding: 18px 22px;
   font-size: 0.9rem;
   line-height: 1.6;
@@ -61,8 +61,8 @@
   left: 0;
   right: 0;
   bottom: -15px;
-  height: 2px;
-  background: var(--color-signal);
+  height: 1px;
+  background: var(--ink-primary);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition-base);
@@ -124,9 +124,11 @@
 }
 
 .title {
-  font-size: clamp(1.38rem, 2.3vw, 1.75rem);
-  letter-spacing: -0.025em;
-  line-height: 1.16;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
 }
 
 .purpose {
@@ -203,8 +205,8 @@
 }
 
 .inquireLink {
-  margin-top: auto;
-  padding-top: 4px;
+  margin-top: 4px;
+  padding-top: 0;
 }
 
 /* Experiential Learning Spotlight */
@@ -219,9 +221,9 @@
 }
 
 .simulationTitle {
-  font-size: clamp(1.5rem, 2.4vw, 1.95rem);
-  letter-spacing: -0.025em;
-  line-height: 1.15;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  letter-spacing: -0.022em;
+  line-height: 1;
   margin-bottom: 14px;
 }
 
@@ -240,7 +242,7 @@
   margin: 16px 0;
   padding: 14px 18px;
   background: var(--color-white);
-  border-left: 2px solid var(--color-accent);
+  border-left: 1px solid var(--border-hairline-strong);
   font-family: var(--font-heading);
   font-size: 0.92rem;
   font-weight: 600;

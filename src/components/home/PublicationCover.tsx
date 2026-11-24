@@ -7,8 +7,10 @@ interface PublicationCoverProps {
   compact?: boolean;
 }
 
-/** Editorial report cover combining documentary photography in the upper
-    frame with a brand-toned monograph title band below. */
+/**
+ * Typographic monograph cover: a documentary plate above a solid colour band
+ * carrying the series title. No gradients, no decorative arcs.
+ */
 export default function PublicationCover({
   publication,
   compact = false,
@@ -24,19 +26,13 @@ export default function PublicationCover({
           src={publication.image}
           alt={publication.imageAlt}
           fill
-          sizes="(max-width: 620px) 100vw, (max-width: 1100px) 45vw, 280px"
+          sizes="(max-width: 620px) 100vw, (max-width: 1100px) 45vw, 300px"
           className={styles.photo}
         />
         <div className={styles.photoScrim} aria-hidden="true" />
-        <span className={styles.brand}>
-          AfriYouth
-          <br />
-          Innovation Labs
-        </span>
       </div>
 
       <div className={styles.bottom}>
-        <div className={styles.arcs} aria-hidden="true" />
         <span className={styles.rule} aria-hidden="true" />
         <span className={styles.series}>{publication.series}</span>
         <span className={styles.category}>{publication.category}</span>

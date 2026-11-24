@@ -1,8 +1,22 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
+import LineIcon, { type LineIconName } from '@/components/LineIcon';
 import { ACCELERATOR_STAGES, type AcceleratorStage } from '@/data/homepage';
 import styles from './EvidenceToImpactRail.module.css';
+
+const STAGE_ICONS: LineIconName[] = [
+  'compass',
+  'pulse',
+  'book',
+  'pen',
+  'cube',
+  'building',
+  'coin',
+  'flag',
+  'bars',
+  'expand',
+];
 
 const PHASES: Array<{
   name: AcceleratorStage['phase'];
@@ -146,6 +160,9 @@ export default function EvidenceToImpactRail() {
         <aside className={styles.spotlightCol} aria-live="polite">
           <div className={styles.detailCard}>
             <div className={styles.detailHeader}>
+              <span className={styles.detailIcon} aria-hidden="true">
+                <LineIcon name={STAGE_ICONS[activeIndex] ?? 'compass'} size={24} />
+              </span>
               <span className={styles.detailPhase}>
                 <span className={styles.detailPhaseDot} aria-hidden="true" />
                 {current.phase}
@@ -240,7 +257,12 @@ export default function EvidenceToImpactRail() {
 
                   <span className={styles.stationBody}>
                     <span className={styles.stationMeta}>{stage.phase}</span>
-                    <span className={styles.stationTitle}>{stage.title}</span>
+                    <span className={styles.stationTitleRow}>
+                      <span className={styles.stationIcon} aria-hidden="true">
+                        <LineIcon name={STAGE_ICONS[idx] ?? 'compass'} size={16} />
+                      </span>
+                      <span className={styles.stationTitle}>{stage.title}</span>
+                    </span>
                     <span className={styles.stationDesc}>
                       {stage.description}
                     </span>

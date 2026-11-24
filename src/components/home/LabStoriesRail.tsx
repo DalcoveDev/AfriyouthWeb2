@@ -14,6 +14,14 @@ const SHORT_NAMES: Record<string, string> = {
   'career-academy': 'Career Academy',
 };
 
+const DISCIPLINES: Record<string, string> = {
+  'venture-lab': 'Innovation & Entrepreneurship',
+  'research-lab': 'Research & Evidence',
+  'policy-lab': 'Policy & Governance',
+  'foresight-lab': 'Foresight & Futures',
+  'career-academy': 'Leadership & Capacity',
+};
+
 export default function LabStoriesRail() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
@@ -50,22 +58,32 @@ export default function LabStoriesRail() {
         role="region"
         aria-label="AfriYouth labs and divisions"
       >
-        {WORK_CHAPTERS.map((lab) => (
+        {WORK_CHAPTERS.map((lab, labIndex) => (
           <Link
             key={lab.id}
             href={`/our-work#${lab.id}`}
             className={styles.card}
             aria-label={`${lab.title} — ${lab.division}`}
           >
-            <Image
-              src={lab.photoSrc}
-              alt={lab.photoAlt}
-              fill
-              sizes="(max-width: 720px) 72vw, (max-width: 1100px) 40vw, 300px"
-              className={styles.image}
-            />
-            <span className={styles.scrim} aria-hidden="true" />
-            <span className={styles.tag}>{SHORT_NAMES[lab.id] ?? lab.title}</span>
+            <span className={styles.media}>
+              <Image
+                src={lab.photoSrc}
+                alt={lab.photoAlt}
+                fill
+                sizes="(max-width: 720px) 78vw, (max-width: 1100px) 42vw, 310px"
+                className={styles.image}
+              />
+            </span>
+
+            <span className={styles.meta}>
+              <span className={styles.row}>
+                <span className={styles.num}>{String(labIndex + 1).padStart(2, '0')}</span>
+                <span className={styles.name}>{SHORT_NAMES[lab.id] ?? lab.title}</span>
+              </span>
+              <span className={styles.discipline}>
+                {DISCIPLINES[lab.id] ?? lab.division}
+              </span>
+            </span>
           </Link>
         ))}
       </div>

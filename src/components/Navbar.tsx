@@ -4,24 +4,23 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import BrandLogo from './BrandLogo';
+import ArrowIcon from './ArrowIcon';
 import { PROGRAMS } from '@/data/programs';
 import { WORK_CHAPTERS } from '@/data/labs';
 import styles from './Navbar.module.css';
 
 type Panel = 'about' | 'work' | 'programs' | null;
 
-const NAV_ITEMS = [{ label: 'Insights', href: '/insights' }];
-
 const ABOUT_LINKS = [
   {
     label: 'About AfriYouth',
     href: '/about',
-    description: 'An African research, innovation and policy consulting firm built around its young people.',
+    description: 'An African research, innovation and policy lab built around its young people.',
   },
   {
     label: 'Our Approach',
     href: '/approach',
-    description: 'Five interlocking capabilities across a 10-stage Evidence-to-Impact pipeline.',
+    description: 'Five capabilities across a 10-stage Evidence-to-Impact continuum.',
   },
   {
     label: 'Our Work',
@@ -38,8 +37,10 @@ const ABOUT_LINKS = [
 const MOBILE_LINKS = [
   { label: 'About AfriYouth', href: '/about' },
   { label: 'Our Approach', href: '/approach' },
-  { label: 'Insights', href: '/insights' },
+  { label: 'Our Work', href: '/our-work' },
+  { label: 'Programs', href: '/programs' },
   { label: 'Partnerships', href: '/partnerships' },
+  { label: 'Insights', href: '/insights' },
   { label: 'Frequently Asked Questions', href: '/faq' },
   { label: 'Contact', href: '/contact' },
 ];
@@ -59,8 +60,6 @@ export default function Navbar() {
   }, [openPanel]);
 
   const isActive = (href: string) => pathname === href;
-  const isHome = pathname === '/';
-  const isHomeOverlay = isHome && !openPanel && !menuOpen;
   const inAboutSection = ['/about', '/approach', '/partnerships'].includes(pathname);
   const inProgramsSection = pathname === '/programs';
 
@@ -75,33 +74,16 @@ export default function Navbar() {
 
   return (
     <header
-      className={`${styles.header} ${isHomeOverlay ? styles.homeHeader : ''} ${
-        isHome && (openPanel || menuOpen) ? styles.homeHeaderActive : ''
-      }`}
+      className={styles.header}
       onMouseLeave={() => setOpenPanel(null)}
       onBlur={(event) => {
-        // Keyboard equivalent of the hover-out close: once focus leaves the
-        // header, the open mega menu goes away.
         if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
           setOpenPanel(null);
         }
       }}
     >
-      {isHome && (
-        <div className={styles.notice}>
-          <div className={`container ${styles.noticeInner}`}>
-            <span className={styles.noticeText}>
-              Five labs. One 10-stage Evidence-to-Impact continuum.
-            </span>
-            <Link href="/approach" className={styles.noticeLink}>
-              Read our approach <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </div>
-      )}
-
       <div className={`container ${styles.inner}`}>
-        <BrandLogo variant={isHomeOverlay ? 'monochrome-white' : 'color'} />
+        <BrandLogo />
 
         <nav className={styles.desktopNav} aria-label="Primary Navigation">
           <ul className={styles.navList}>
@@ -115,7 +97,7 @@ export default function Navbar() {
                 onFocus={() => setOpenPanel('about')}
                 onClick={() => togglePanel('about')}
               >
-                About Us
+                About
                 <span
                   className={`${styles.chevron} ${openPanel === 'about' ? styles.chevronOpen : ''}`}
                   aria-hidden="true"
@@ -161,37 +143,35 @@ export default function Navbar() {
               </button>
             </li>
 
-            {NAV_ITEMS.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  className={`${styles.navLink} ${isActive(item.href) ? styles.navLinkActive : ''}`}
-                  aria-current={isActive(item.href) ? 'page' : undefined}
-                  onClick={() => setOpenPanel(null)}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
+            <li>
+              <Link
+                href="/insights"
+                className={`${styles.navLink} ${isActive('/insights') ? styles.navLinkActive : ''}`}
+                aria-current={isActive('/insights') ? 'page' : undefined}
+                onClick={() => setOpenPanel(null)}
+              >
+                Insights
+              </Link>
+            </li>
           </ul>
 
           <div className={styles.utility}>
             <Link
               href="/faq"
-              className={`${styles.utilityLink} ${isActive('/faq') ? styles.navLinkActive : ''}`}
+              className={styles.utilityLink}
               aria-current={isActive('/faq') ? 'page' : undefined}
             >
               FAQs
             </Link>
             <Link
               href="/contact"
-              className={`${styles.utilityLink} ${isActive('/contact') ? styles.navLinkActive : ''}`}
+              className={styles.utilityLink}
               aria-current={isActive('/contact') ? 'page' : undefined}
             >
               Contact
             </Link>
             <Link href="/partnerships" className={styles.partnerBtn}>
-              Partner With Us
+              Partner with us
             </Link>
           </div>
         </nav>
@@ -218,13 +198,13 @@ export default function Navbar() {
               aria-label="Close about menu"
               onClick={() => setOpenPanel(null)}
             >
-              ✕
+              Close
             </button>
 
             <div className={styles.megaRail}>
               <Link href="/about" className={styles.railTitle} onClick={() => setOpenPanel(null)}>
                 About AfriYouth
-                <span aria-hidden="true">→</span>
+                <ArrowIcon />
               </Link>
               <ul className={styles.railList}>
                 {ABOUT_LINKS.map((link) => (
@@ -236,7 +216,7 @@ export default function Navbar() {
                     >
                       {link.label}
                       <span className={styles.railArrow} aria-hidden="true">
-                        →
+                        <ArrowIcon />
                       </span>
                     </Link>
                   </li>
@@ -252,14 +232,20 @@ export default function Navbar() {
                   className={styles.megaItem}
                   onClick={() => setOpenPanel(null)}
                 >
-                  <span className={styles.megaItemTitle}>{link.label} →</span>
+                  <span className={styles.megaItemTitle}>
+                    {link.label}
+                    <ArrowIcon />
+                  </span>
                   <span className={styles.megaItemText}>{link.description}</span>
                 </Link>
               ))}
               <Link href="/faq" className={styles.megaItem} onClick={() => setOpenPanel(null)}>
-                <span className={styles.megaItemTitle}>FAQs →</span>
+                <span className={styles.megaItemTitle}>
+                  FAQs
+                  <ArrowIcon />
+                </span>
                 <span className={styles.megaItemText}>
-                  Clarity on programs, participation pathways and institutional partnerships.
+                  Clarity on programmes, participation pathways and institutional partnerships.
                 </span>
               </Link>
             </div>
@@ -276,13 +262,13 @@ export default function Navbar() {
               aria-label="Close our work menu"
               onClick={() => setOpenPanel(null)}
             >
-              ✕
+              Close
             </button>
 
             <div className={styles.megaRail}>
               <Link href="/our-work" className={styles.railTitle} onClick={() => setOpenPanel(null)}>
                 Our Work
-                <span aria-hidden="true">→</span>
+                <ArrowIcon />
               </Link>
               <ul className={styles.railList}>
                 {WORK_CHAPTERS.map((chapter) => (
@@ -294,7 +280,7 @@ export default function Navbar() {
                     >
                       {chapter.title}
                       <span className={styles.railArrow} aria-hidden="true">
-                        →
+                        <ArrowIcon />
                       </span>
                     </Link>
                   </li>
@@ -310,7 +296,10 @@ export default function Navbar() {
                   className={styles.megaItem}
                   onClick={() => setOpenPanel(null)}
                 >
-                  <span className={styles.megaItemTitle}>{chapter.title} →</span>
+                  <span className={styles.megaItemTitle}>
+                    {chapter.title}
+                    <ArrowIcon />
+                  </span>
                   <span className={`${styles.megaItemText} ${styles.clamp2}`}>
                     {chapter.description}
                   </span>
@@ -321,10 +310,12 @@ export default function Navbar() {
                 className={styles.megaItem}
                 onClick={() => setOpenPanel(null)}
               >
-                <span className={styles.megaItemTitle}>Impact &amp; Funding Advisory →</span>
+                <span className={styles.megaItemTitle}>
+                  Impact &amp; Funding Advisory
+                  <ArrowIcon />
+                </span>
                 <span className={`${styles.megaItemText} ${styles.clamp2}`}>
-                  Cross-cutting M&amp;E systems, learning reports, grant strategy and investment
-                  readiness for partners.
+                  M&amp;E systems, learning reports, grant strategy and investment readiness.
                 </span>
               </Link>
             </div>
@@ -345,13 +336,13 @@ export default function Navbar() {
               aria-label="Close programs menu"
               onClick={() => setOpenPanel(null)}
             >
-              ✕
+              Close
             </button>
 
             <div className={styles.megaRail}>
               <Link href="/programs" className={styles.railTitle} onClick={() => setOpenPanel(null)}>
                 Programs &amp; Initiatives
-                <span aria-hidden="true">→</span>
+                <ArrowIcon />
               </Link>
               <ul className={styles.railList}>
                 {PROGRAMS.map((program) => (
@@ -363,7 +354,7 @@ export default function Navbar() {
                     >
                       {program.title}
                       <span className={styles.railArrow} aria-hidden="true">
-                        →
+                        <ArrowIcon />
                       </span>
                     </Link>
                   </li>
@@ -379,7 +370,10 @@ export default function Navbar() {
                   className={styles.megaItem}
                   onClick={() => setOpenPanel(null)}
                 >
-                  <span className={styles.megaItemTitle}>{program.title} →</span>
+                  <span className={styles.megaItemTitle}>
+                    {program.title}
+                    <ArrowIcon />
+                  </span>
                   <span className={`${styles.megaItemText} ${styles.clamp2}`}>
                     {program.purpose}
                   </span>
@@ -390,7 +384,10 @@ export default function Navbar() {
                 className={styles.megaItem}
                 onClick={() => setOpenPanel(null)}
               >
-                <span className={styles.megaItemTitle}>Co-Design a Cohort →</span>
+                <span className={styles.megaItemTitle}>
+                  Co-Design a Cohort
+                  <ArrowIcon />
+                </span>
                 <span className={`${styles.megaItemText} ${styles.clamp2}`}>
                   Partner with AfriYouth to launch thematic policy challenges or university
                   employability tracks.
@@ -418,55 +415,11 @@ export default function Navbar() {
             ))}
             <li>
               <Link
-                href="/our-work"
-                className={styles.mobileLink}
-                onClick={() => setMenuOpen(false)}
-              >
-                Our Work
-              </Link>
-              <ul className={styles.mobileSub}>
-                {WORK_CHAPTERS.map((chapter) => (
-                  <li key={chapter.id}>
-                    <Link
-                      href={`/our-work#${chapter.id}`}
-                      className={styles.mobileSubLink}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {chapter.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-            <li>
-              <Link
-                href="/programs"
-                className={styles.mobileLink}
-                onClick={() => setMenuOpen(false)}
-              >
-                Programs
-              </Link>
-              <ul className={styles.mobileSub}>
-                {PROGRAMS.map((program) => (
-                  <li key={program.id}>
-                    <Link
-                      href={`/programs#${program.id}`}
-                      className={styles.mobileSubLink}
-                      onClick={() => setMenuOpen(false)}
-                    >
-                      {program.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </li>
-            <li>
-              <Link
                 href="/partnerships"
                 className={styles.mobileCta}
                 onClick={() => setMenuOpen(false)}
               >
-                Partner With Us
+                Partner with us
               </Link>
             </li>
           </ul>

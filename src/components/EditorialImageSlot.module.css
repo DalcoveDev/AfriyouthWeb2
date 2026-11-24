@@ -6,8 +6,6 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: var(--radius-card);
-  border: none;
   background: var(--surface-subtle);
 }
 
@@ -23,15 +21,7 @@
   display: flex;
   align-items: flex-end;
   padding: clamp(20px, 3vw, 32px);
-  background:
-    linear-gradient(180deg, rgba(13, 6, 36, 0.06) 0%, rgba(13, 6, 36, 0.9) 100%),
-    repeating-linear-gradient(
-      -45deg,
-      rgba(199, 35, 223, 0.07),
-      rgba(199, 35, 223, 0.07) 12px,
-      rgba(13, 6, 36, 0.03) 12px,
-      rgba(13, 6, 36, 0.03) 24px
-    );
+  background: var(--surface-ink);
 }
 
 .placeholderInner {
@@ -40,23 +30,29 @@
 }
 
 .ratioBadge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: var(--font-heading);
-  font-size: 0.68rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.16);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0;
   margin-bottom: 12px;
-  color: #FFFFFF;
+  color: var(--ink-inverse-muted);
+}
+
+.ratioBadge::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  background: var(--brand-lavender);
 }
 
 .slotTitle {
-  font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
   font-weight: 600;
+  line-height: 1.1;
   margin-bottom: 6px;
 }
 
@@ -72,11 +68,13 @@
   font-family: var(--font-heading);
   font-size: 0.7rem;
   letter-spacing: 0.06em;
-  color: var(--color-teal);
+  color: var(--brand-lavender);
 }
 
 .caption {
-  margin-top: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid var(--border-hairline);
   font-size: 0.82rem;
   color: var(--ink-muted);
 }

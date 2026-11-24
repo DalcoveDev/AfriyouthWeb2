@@ -3,6 +3,7 @@ import {
   CONTEXT_COUNTRIES,
   KIGALI_POINT,
 } from '@/data/africaMapPaths';
+import { WORLD_COUNTRIES, WORLD_FRAME } from '@/data/worldMapPaths';
 import styles from './AfricaFootprintMap.module.css';
 
 const EAST_AFRICA_NEIGHBORS = new Set(['UGA', 'TZA', 'KEN', 'BDI', 'COD']);
@@ -36,7 +37,6 @@ const LABELS: MapLabel[] = [
   { text: 'Lagos', x: 228, y: 382, kind: 'city' },
   { text: 'Cameroon', x: 316, y: 404 },
   { text: 'Ethiopia', x: 588, y: 360 },
-  { text: 'AFRICA', x: 448, y: 392, kind: 'continent' },
   { text: 'Uganda', x: 518, y: 404 },
   { text: 'Kenya', x: 568, y: 416 },
   { text: 'DR Congo', x: 422, y: 460 },
@@ -68,7 +68,7 @@ export default function AfricaFootprintMap() {
     <div className={styles.mapCard}>
       <div className={styles.mapCanvas}>
         <svg
-          viewBox="0 0 740 785"
+          viewBox={`0 0 ${WORLD_FRAME.width} ${WORLD_FRAME.height}`}
           className={styles.svg}
           role="img"
           aria-labelledby="africa-map-title africa-map-desc"
@@ -92,189 +92,196 @@ export default function AfricaFootprintMap() {
             </clipPath>
           </defs>
 
-          {/* 1. Surrounding Mediterranean & Middle East context polygons */}
-          <g className={styles.contextLayer}>
-            {CONTEXT_COUNTRIES.map((country) => (
-              <path key={country.id} d={country.d} className={styles.contextCountry} />
+          {/* 0. Surrounding continents, kept light so Africa stays the subject */}
+          <g className={styles.worldLayer}>
+            {WORLD_COUNTRIES.map((country) => (
+              <path key={country.id} d={country.d} className={styles.worldCountry} />
             ))}
           </g>
 
-          {/* 2. Base African continent countries */}
-          <g className={styles.africaLayer}>
-            {AFRICA_COUNTRIES.map((country) => {
-              const isRwanda = country.id === 'RWA';
-              const isNeighbor = EAST_AFRICA_NEIGHBORS.has(country.id);
-              return (
-                <path
-                  key={country.id}
-                  d={country.d}
-                  className={
-                    isRwanda
-                      ? styles.countryRwanda
-                      : isNeighbor
-                        ? styles.countryNeighbor
-                        : styles.countryBase
-                  }
-                />
-              );
-            })}
-          </g>
-
-          {/* 3. Re-stroke Rwanda on top so its border is always razor-sharp */}
-          {rwandaPath && (
-            <path d={rwandaPath.d} className={styles.countryRwandaTop} />
-          )}
-
-          {/* 4. Ocean typography (matching reference map aesthetic) */}
-          <g className={styles.oceanText} aria-hidden="true">
-            <text x="112" y="684" textAnchor="middle">
-              South
-            </text>
-            <text x="112" y="708" textAnchor="middle">
-              Atlantic
-            </text>
-            <text x="112" y="732" textAnchor="middle">
-              Ocean
-            </text>
-          </g>
-
-          {/* 5. Country & city labels */}
-          <g aria-hidden="true">
-            {LABELS.map((label) => (
-              <text
-                key={label.text}
-                x={label.x}
-                y={label.y}
-                textAnchor="middle"
-                className={
-                  label.kind === 'continent'
-                    ? styles.labelContinent
-                    : label.kind === 'context'
-                      ? styles.labelContext
-                      : label.kind === 'city'
-                        ? styles.labelCity
-                        : styles.labelCountry
-                }
-              >
-                {label.text}
-              </text>
-            ))}
-          </g>
-
-          {/* 6. Kigali, Rwanda active beacon & leader line to magnified East Africa inset */}
-          <g className={styles.kigaliMarker}>
-            <circle
-              cx={KIGALI_POINT.x}
-              cy={KIGALI_POINT.y}
-              r="26"
-              fill="url(#kigaliPulse)"
-            />
-            <circle
-              cx={KIGALI_POINT.x}
-              cy={KIGALI_POINT.y}
-              r="11"
-              className={styles.kigaliRing}
-            />
-            <circle
-              cx={KIGALI_POINT.x}
-              cy={KIGALI_POINT.y}
-              r="4.2"
-              className={styles.kigaliDot}
-            />
-
-            {/* Connector line from Rwanda to the magnified East Africa lens */}
-            <path
-              d={`M ${KIGALI_POINT.x + 8} ${KIGALI_POINT.y + 4} L 562 466`}
-              className={styles.leaderLine}
-            />
-
-            {/* Direct on-map pill label for Rwanda */}
-            <g transform={`translate(${KIGALI_POINT.x - 134}, ${KIGALI_POINT.y - 34})`}>
-              <rect
-                x="0"
-                y="0"
-                width="124"
-                height="26"
-                rx="13"
-                className={styles.rwandaPillBg}
-              />
-              <circle cx="13" cy="13" r="4" fill="#C723DF" />
-              <text x="23" y="17" className={styles.rwandaPillText}>
-                Rwanda · Kigali
-              </text>
+          {/* Africa frame — every layer below is authored in the 740×785 map space */}
+          <g transform={`translate(${WORLD_FRAME.dx}, ${WORLD_FRAME.dy})`}>
+            {/* 1. Surrounding Mediterranean & Middle East context polygons */}
+            <g className={styles.contextLayer}>
+              {CONTEXT_COUNTRIES.map((country) => (
+                <path key={country.id} d={country.d} className={styles.contextCountry} />
+              ))}
             </g>
-          </g>
 
-          {/* 7. Magnified East Africa Detail Lens (4.2x zoom centered on Rwanda) */}
-          <g className={styles.insetGroup}>
-            <circle cx="634" cy="492" r="78" className={styles.lensBackdrop} />
-            <g clipPath="url(#eastAfricaLens)">
-              <rect x="554" y="412" width="160" height="160" fill="#F6F6FA" />
-              <g
-                transform={`translate(634, 492) scale(4.2) translate(${-KIGALI_POINT.x}, ${-KIGALI_POINT.y})`}
-              >
-                {eastAfricaPaths.map((country) => (
+            {/* 2. Base African continent countries */}
+            <g className={styles.africaLayer}>
+              {AFRICA_COUNTRIES.map((country) => {
+                const isRwanda = country.id === 'RWA';
+                const isNeighbor = EAST_AFRICA_NEIGHBORS.has(country.id);
+                return (
                   <path
-                    key={`inset-${country.id}`}
+                    key={country.id}
                     d={country.d}
                     className={
-                      country.id === 'RWA'
-                        ? styles.insetRwanda
-                        : styles.insetNeighbor
+                      isRwanda
+                        ? styles.countryRwanda
+                        : isNeighbor
+                          ? styles.countryNeighbor
+                          : styles.countryBase
                     }
                   />
-                ))}
-                <circle
-                  cx={KIGALI_POINT.x}
-                  cy={KIGALI_POINT.y}
-                  r="1.4"
-                  fill="#FFFFFF"
-                  stroke="#0D0624"
-                  strokeWidth="0.5"
-                />
-              </g>
-              <text x="634" y="434" textAnchor="middle" className={styles.lensSubLabel}>
-                UGA
+                );
+              })}
+            </g>
+
+            {/* 3. Re-stroke Rwanda on top so its border is always razor-sharp */}
+            {rwandaPath && (
+              <path d={rwandaPath.d} className={styles.countryRwandaTop} />
+            )}
+
+            {/* 4. Ocean typography (matching reference map aesthetic) */}
+            <g className={styles.oceanText} aria-hidden="true">
+              <text x="112" y="684" textAnchor="middle">
+                South
               </text>
-              <text x="684" y="514" textAnchor="middle" className={styles.lensSubLabel}>
-                TZA
+              <text x="112" y="708" textAnchor="middle">
+                Atlantic
               </text>
-              <text x="582" y="492" textAnchor="middle" className={styles.lensSubLabel}>
-                DRC
-              </text>
-              <text x="632" y="544" textAnchor="middle" className={styles.lensSubLabel}>
-                BDI
-              </text>
-              <text x="636" y="484" textAnchor="middle" className={styles.lensRwandaLabel}>
-                RWANDA
-              </text>
-              <text x="636" y="504" textAnchor="middle" className={styles.lensKigaliLabel}>
-                ★ Kigali HQ
+              <text x="112" y="732" textAnchor="middle">
+                Ocean
               </text>
             </g>
-            <circle cx="634" cy="492" r="76" className={styles.lensBorder} />
-            <text x="634" y="586" textAnchor="middle" className={styles.lensCaption}>
-              4× East Africa Detail
+
+            {/* 5. Country & city labels */}
+            <g aria-hidden="true">
+              {LABELS.map((label) => (
+                <text
+                  key={label.text}
+                  x={label.x}
+                  y={label.y}
+                  textAnchor="middle"
+                  className={
+                    label.kind === 'continent'
+                      ? styles.labelContinent
+                      : label.kind === 'context'
+                        ? styles.labelContext
+                        : label.kind === 'city'
+                          ? styles.labelCity
+                          : styles.labelCountry
+                  }
+                >
+                  {label.text}
+                </text>
+              ))}
+            </g>
+
+            {/* 6. Kigali, Rwanda active beacon & leader line to magnified East Africa inset */}
+            <g className={styles.kigaliMarker}>
+              <circle
+                cx={KIGALI_POINT.x}
+                cy={KIGALI_POINT.y}
+                r="26"
+                fill="url(#kigaliPulse)"
+              />
+              <circle
+                cx={KIGALI_POINT.x}
+                cy={KIGALI_POINT.y}
+                r="11"
+                className={styles.kigaliRing}
+              />
+              <circle
+                cx={KIGALI_POINT.x}
+                cy={KIGALI_POINT.y}
+                r="4.2"
+                className={styles.kigaliDot}
+              />
+
+              {/* Connector line from Rwanda to the magnified East Africa lens */}
+              <path
+                d={`M ${KIGALI_POINT.x + 8} ${KIGALI_POINT.y + 4} L 562 466`}
+                className={styles.leaderLine}
+              />
+
+              {/* Direct on-map pill label for Rwanda */}
+              <g transform={`translate(${KIGALI_POINT.x - 134}, ${KIGALI_POINT.y - 34})`}>
+                <rect
+                  x="0"
+                  y="0"
+                  width="124"
+                  height="26"
+                  rx="13"
+                  className={styles.rwandaPillBg}
+                />
+                <circle cx="13" cy="13" r="4" fill="#C723DF" />
+                <text x="23" y="17" className={styles.rwandaPillText}>
+                  Rwanda · Kigali
+                </text>
+              </g>
+            </g>
+
+            {/* 7. Magnified East Africa Detail Lens (4.2x zoom centered on Rwanda) */}
+            <g className={styles.insetGroup}>
+              <circle cx="634" cy="492" r="78" className={styles.lensBackdrop} />
+              <g clipPath="url(#eastAfricaLens)">
+                <rect x="554" y="412" width="160" height="160" fill="#F6F6FA" />
+                <g
+                  transform={`translate(634, 492) scale(4.2) translate(${-KIGALI_POINT.x}, ${-KIGALI_POINT.y})`}
+                >
+                  {eastAfricaPaths.map((country) => (
+                    <path
+                      key={`inset-${country.id}`}
+                      d={country.d}
+                      className={
+                        country.id === 'RWA'
+                          ? styles.insetRwanda
+                          : styles.insetNeighbor
+                      }
+                    />
+                  ))}
+                  <circle
+                    cx={KIGALI_POINT.x}
+                    cy={KIGALI_POINT.y}
+                    r="1.4"
+                    fill="#FFFFFF"
+                    stroke="#0D0624"
+                    strokeWidth="0.5"
+                  />
+                </g>
+                <text x="634" y="434" textAnchor="middle" className={styles.lensSubLabel}>
+                  UGA
+                </text>
+                <text x="684" y="514" textAnchor="middle" className={styles.lensSubLabel}>
+                  TZA
+                </text>
+                <text x="582" y="492" textAnchor="middle" className={styles.lensSubLabel}>
+                  DRC
+                </text>
+                <text x="632" y="544" textAnchor="middle" className={styles.lensSubLabel}>
+                  BDI
+                </text>
+                <text x="636" y="484" textAnchor="middle" className={styles.lensRwandaLabel}>
+                  RWANDA
+                </text>
+                <text x="636" y="504" textAnchor="middle" className={styles.lensKigaliLabel}>
+                  ★ Kigali HQ
+                </text>
+              </g>
+              <circle cx="634" cy="492" r="76" className={styles.lensBorder} />
+              <text x="634" y="586" textAnchor="middle" className={styles.lensCaption}>
+                4× East Africa Detail
+              </text>
+          </g>
+          </g>
+
+          {/* Continent / ocean type for the surrounding frame, drawn last
+              so neighbouring land never covers it */}
+          <g aria-hidden="true">
+            <text x="690" y="168" textAnchor="middle" className={styles.labelContinent}>
+              EUROPE
+            </text>
+            <text x="1290" y="256" textAnchor="middle" className={styles.labelContinent}>
+              ASIA
+            </text>
+            <text x="1250" y="848" textAnchor="middle" className={styles.oceanInk}>
+              Indian Ocean
             </text>
           </g>
         </svg>
-      </div>
-
-      <div className={styles.legend}>
-        <div className={styles.legendItem}>
-          <span className={`${styles.swatch} ${styles.swatchActive}`} aria-hidden="true" />
-          <span>
-            <strong>Rwanda (Kigali)</strong> — Current Operational Headquarters &amp; Active Labs
-          </span>
-        </div>
-        <div className={styles.legendItem}>
-          <span className={`${styles.swatch} ${styles.swatchRegion}`} aria-hidden="true" />
-          <span>East Africa Regional Corridor</span>
-        </div>
-        <div className={styles.legendItem}>
-          <span className={`${styles.swatch} ${styles.swatchContinent}`} aria-hidden="true" />
-          <span>Pan-African 2050 Research &amp; Foresight Horizon</span>
-        </div>
       </div>
     </div>
   );

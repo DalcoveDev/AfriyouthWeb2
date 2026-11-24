@@ -3,29 +3,73 @@
 import { useState } from 'react';
 import styles from './ContactInquiryForm.module.css';
 
+const INBOX = 'info@afriyouthlabs.org';
+
+function buildMailto(fields: {
+  name: string;
+  organization: string;
+  email: string;
+  phone: string;
+  topic: string;
+  message: string;
+}) {
+  const subject = `AfriYouth inquiry — ${fields.topic}`;
+  const body = [
+    `Name: ${fields.name}`,
+    `Organization: ${fields.organization || '—'}`,
+    `Email: ${fields.email}`,
+    `Telephone / WhatsApp: ${fields.phone || '—'}`,
+    `Inquiry pathway: ${fields.topic}`,
+    '',
+    'Message:',
+    fields.message,
+  ].join('\r\n');
+
+  return `mailto:${INBOX}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
+
 export default function ContactInquiryForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [mailto, setMailto] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const data = new FormData(e.currentTarget);
+    const link = buildMailto({
+      name: String(data.get('name') ?? ''),
+      organization: String(data.get('organization') ?? ''),
+      email: String(data.get('email') ?? ''),
+      phone: String(data.get('phone') ?? ''),
+      topic: String(data.get('topic') ?? ''),
+      message: String(data.get('message') ?? ''),
+    });
+
+    setMailto(link);
     setSubmitted(true);
+    window.location.href = link;
   };
 
   if (submitted) {
     return (
       <div className={styles.confirmation} role="status" aria-live="polite">
-        <h3>Thank You for Reaching Out to AfriYouth Innovation Labs</h3>
+        <h3>Your Email App Should Now Open</h3>
         <p>
-          Your inquiry has been routed to our Kigali coordination desk (
-          <code>info@afriyouthlabs.org</code>). Our research and partnerships team will review
-          your message and respond within two business days.
+          Your inquiry has been prepared and addressed to our Kigali coordination desk (
+          <code>{INBOX}</code>). Send the email from your mail app and our research and
+          partnerships team will respond within two business days.
+        </p>
+        <p>
+          If nothing opened,{' '}
+          <a href={mailto}>open the prepared inquiry</a> or email{' '}
+          <a href={`mailto:${INBOX}`}>{INBOX}</a> directly.
         </p>
         <button
           type="button"
           className={`btn btn-ghost-inverse ${styles.resetBtn}`}
           onClick={() => setSubmitted(false)}
         >
-          Send another inquiry
+          Edit inquiry
         </button>
       </div>
     );
@@ -37,7 +81,7 @@ export default function ContactInquiryForm() {
         <span className="section-rule" aria-hidden="true" />
         <p className={styles.introText}>
           Tell us who you are and what you are exploring—we route every inquiry directly to the
-          relevant lab lead at our Kigali, Rwanda headquarters (<strong>info@afriyouthlabs.org</strong>).
+          relevant lab lead at our Kigali, Rwanda headquarters (<strong>{INBOX}</strong>).
         </p>
       </div>
 

@@ -43,3 +43,11 @@ next-env.d.ts
 # temp audit artifacts
 .tmp-*
 AUDIT-REPORT.md
+
+# local agent tooling
+.agents/
+.claude/
+.codex/
+.freebuff/
+.impeccable/
+.opencode/

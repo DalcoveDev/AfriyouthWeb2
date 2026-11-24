@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import PageHeader from '@/components/PageHeader';
+import LineIcon, { type LineIconName } from '@/components/LineIcon';
 import ContactInquiryForm from '@/components/forms/ContactInquiryForm';
+import SocialLinks from '@/components/SocialLinks';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -9,27 +11,32 @@ export const metadata: Metadata = {
     'Contact AfriYouth Innovation Labs in Kigali, Rwanda for research commissions, university employability partnerships, or institutional collaborations.',
 };
 
-const DETAILS = [
+const DETAILS: Array<{ label: string; value: string; icon: LineIconName }> = [
   {
     label: 'Office location',
     value: 'Kigali Innovation City, Gasabo District, KG 7 Ave — Kigali, Rwanda',
+    icon: 'pin',
   },
   {
     label: 'Official email',
     value: 'info@afriyouthlabs.org · partnerships@afriyouthlabs.org',
+    icon: 'mail',
   },
   {
     label: 'Research & programs desk',
     value: 'research@afriyouthlabs.org · programs@afriyouthlabs.org',
+    icon: 'mail',
   },
   {
     label: 'Telephone & office hours',
     value: '+250 788 123 456 · Monday – Friday, 08:30 – 17:30 CAT (Kigali)',
+    icon: 'phone',
   },
   {
     label: 'Next steps',
     value:
       'Partnership, research, and cohort inquiries are reviewed by our Kigali team within two business days to align on scope, community context, and evidence objectives.',
+    icon: 'flag',
   },
 ];
 
@@ -57,11 +64,24 @@ export default function ContactPage() {
             <dl className={styles.details}>
               {DETAILS.map((d) => (
                 <div key={d.label} className={styles.detail}>
-                  <dt className={styles.detailLabel}>{d.label}</dt>
+                  <dt className={styles.detailLabel}>
+                    <span className={styles.detailIcon} aria-hidden="true">
+                      <LineIcon name={d.icon} size={16} />
+                    </span>
+                    {d.label}
+                  </dt>
                   <dd className={styles.detailValue}>{d.value}</dd>
                 </div>
               ))}
             </dl>
+
+            <div className={styles.follow}>
+              <h3 className={styles.followTitle}>Follow AfriYouth</h3>
+              <p className={styles.followLead}>
+                Programme updates, field evidence and policy dialogue across our channels.
+              </p>
+              <SocialLinks dense />
+            </div>
           </div>
 
           <div className={styles.formPanel}>
